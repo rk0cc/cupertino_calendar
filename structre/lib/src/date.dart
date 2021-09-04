@@ -1,13 +1,13 @@
-void _disallowNonFirstDate(YearMonth ym) {
-  assert(ym.day == 1 &&
-      ym.hour == 0 &&
-      ym.minute == 0 &&
-      ym.second == 0 &&
-      ym.millisecond == 0 &&
-      ym.microsecond == 0);
-}
-
 class YearMonth extends DateTime {
+  static void _disallowNonFirstDate(YearMonth ym) {
+    assert(ym.day == 1 &&
+        ym.hour == 0 &&
+        ym.minute == 0 &&
+        ym.second == 0 &&
+        ym.millisecond == 0 &&
+        ym.microsecond == 0);
+  }
+
   YearMonth(int year, int month) : super(year, month) {
     _disallowNonFirstDate(this);
   }
