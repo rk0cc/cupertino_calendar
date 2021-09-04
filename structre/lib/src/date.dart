@@ -8,9 +8,6 @@ void _disallowNonFirstDate(YearMonth ym) {
 }
 
 class YearMonth extends DateTime {
-  final UnsupportedError _disallowModify =
-      UnsupportedError("You can not add or subtract time in YearMonth");
-
   YearMonth(int year, int month) : super(year, month) {
     _disallowNonFirstDate(this);
   }
@@ -22,17 +19,21 @@ class YearMonth extends DateTime {
     return YearMonth(n.year, n.month);
   }
 
-  /// Throws [UnsupportedError] if trying to modify [YearMonth]'s date and time
-  @Deprecated("Please cast back to DateTime before modification")
+  /// Add [duration] that in a month.
+  /// Otherwie, throws [AssertionError]
   @override
-  DateTime add(Duration duration) {
-    throw _disallowModify;
+  YearMonth add(Duration duration) {
+    DateTime nYM = super.add(duration);
+    _disallowNonFirstDate(nYM as YearMonth);
+    return nYM;
   }
 
-  /// Throws [UnsupportedError] if trying to modify [YearMonth]'s date and time
-  @Deprecated("Please cast back to DateTime before modification")
+  /// Subtract [duration] that in a month.
+  /// Otherwie, throws [AssertionError]
   @override
-  DateTime subtract(Duration duration) {
-    throw _disallowModify;
+  YearMonth subtract(Duration duration) {
+    DateTime nYM = super.subtract(duration);
+    _disallowNonFirstDate(nYM as YearMonth);
+    return nYM;
   }
 }
