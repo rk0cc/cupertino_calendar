@@ -1,5 +1,5 @@
 void _disallowNonFirstDate(YearMonth ym) {
-  assert(ym.day == 0 &&
+  assert(ym.day == 1 &&
       ym.hour == 0 &&
       ym.minute == 0 &&
       ym.second == 0 &&
