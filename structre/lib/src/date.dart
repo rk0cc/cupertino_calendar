@@ -1,76 +1,46 @@
 import 'dart:collection' show HashSet;
+import 'package:quiver/core.dart' show hash2;
 
-/// [YearMonth] is a extended class from [DateTime] which only contains [year]
-/// and [month] mainly
-class YearMonth extends DateTime {
-  static void _disallowNonFirstDate(YearMonth ym) {
-    assert(ym.day == 1 &&
-        ym.hour == 0 &&
-        ym.minute == 0 &&
-        ym.second == 0 &&
-        ym.millisecond == 0 &&
-        ym.microsecond == 0);
-  }
+class YearMonth {
+  final int year;
+  final int month;
 
-  /// Create new [YearMonth]
-  ///
-  /// ## Caution
-  ///
-  /// **[YearMonth]'s [day] must be `1` and [hour], [minute], [second],
-  /// [millisecond] and [microsecond] must be `0`, throws [AssertionError]
-  /// if don't obey these requirments**
-  YearMonth(int year, int month) : super(year, month) {
-    _disallowNonFirstDate(this);
-  }
+  const YearMonth(this.year, this.month) : assert(month >= 1 && month <= 12);
 
-  /// Do the same of the [DateTime.now] but return it's [year] and [month] value
-  /// only
+  /// Inspect [DateTime] object and convert back to [YearMonth]
+  factory YearMonth.dateTime(DateTime dateTime) =>
+      YearMonth(dateTime.year, dateTime.month);
+
+  /// Get current [year] and [month] from [DateTime.now]
   factory YearMonth.now() {
-    var n = DateTime.now();
+    DateTime n = DateTime.now();
     return YearMonth(n.year, n.month);
   }
 
-  /// Add [duration] that in a month.
-  /// Otherwie, throws [AssertionError] if result is not the first date at
-  /// 00:00:00.0 of [DateTime]
-  @Deprecated("Please cast back to DateTime if decided to modify existed time")
-  @override
-  YearMonth add(Duration duration) {
-    DateTime nYM = super.add(duration);
-    _disallowNonFirstDate(nYM as YearMonth);
-    return nYM;
-  }
+  /// Get first day of [YearMonth] and convert back to [YearMonth]
+  DateTime get firstDay => DateTime(year, month, 1);
 
-  /// Subtract [duration] that in a month.
-  /// Otherwie, throws [AssertionError] if result is not the first date at
-  /// 00:00:00.0 of [DateTime]
-  @Deprecated("Please cast back to DateTime if decided to modify existed time")
-  @override
-  YearMonth subtract(Duration duration) {
-    DateTime nYM = super.subtract(duration);
-    _disallowNonFirstDate(nYM as YearMonth);
-    return nYM;
-  }
+  /// Get last day of [YearMonth] and convert back to [YearMonth]
+  DateTime get lastDay => DateTime(year, month + 1, 0);
 
-  /// Get last date of this [YearMonth]
-  ///
-  /// Throws [AssertionError] if [YearMonth] is not the first date at
-  /// 00:00:00.0
-  DateTime get lastDateOfThisMonth {
-    _disallowNonFirstDate(this);
-    return DateTime(this.year, this.month + 1, 0);
-  }
-
-  /// Generate a [Set] of [DateTime] of all day in this [YearMonth]
-  ///
-  /// Throws [AssertionError] if [YearMonth] is not the first date at
-  /// 00:00:00.0
-  Set<DateTime> get allDate {
-    _disallowNonFirstDate(this);
-    Set<DateTime> dates = HashSet();
-    for (int d = 1; d <= lastDateOfThisMonth.day; d++) {
-      dates.add(DateTime(this.year, this.month, d));
+  /// Generate a [Set] of [DateTime] which is from [YearMonth]
+  Set<DateTime> get allDaysInMonth {
+    Set<DateTime> aD = HashSet();
+    for (int d = firstDay.day; d <= lastDay.day; d++) {
+      aD.add(DateTime(year, month, d));
     }
-    return dates;
+    return aD;
   }
+
+  /// Check today is contains in this month from [YearMonth.now]
+  bool get todayInThisMonth => this == YearMonth.now();
+
+  /// Compare [YearMonth] is the same value of [year] and [month]
+  @override
+  bool operator ==(Object compare) => (compare is YearMonth)
+      ? year == compare.year && month == compare.month
+      : false;
+
+  @override
+  int get hashCode => hash2(year.hashCode, month.hashCode);
 }
