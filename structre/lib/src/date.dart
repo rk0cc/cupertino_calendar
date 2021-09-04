@@ -20,7 +20,9 @@ class YearMonth extends DateTime {
   }
 
   /// Add [duration] that in a month.
-  /// Otherwie, throws [AssertionError]
+  /// Otherwie, throws [AssertionError] if result is not the first date at
+  /// 00:00:00.0 of [DateTime]
+  @Deprecated("Please cast back to DateTime if decided to modify existed time")
   @override
   YearMonth add(Duration duration) {
     DateTime nYM = super.add(duration);
@@ -29,7 +31,9 @@ class YearMonth extends DateTime {
   }
 
   /// Subtract [duration] that in a month.
-  /// Otherwie, throws [AssertionError]
+  /// Otherwie, throws [AssertionError] if result is not the first date at
+  /// 00:00:00.0 of [DateTime]
+  @Deprecated("Please cast back to DateTime if decided to modify existed time")
   @override
   YearMonth subtract(Duration duration) {
     DateTime nYM = super.subtract(duration);
