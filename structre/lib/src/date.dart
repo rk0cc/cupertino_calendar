@@ -1,4 +1,5 @@
 import 'dart:collection' show LinkedHashSet, SetBase;
+import 'package:intl/intl.dart';
 import 'package:quiver/core.dart' show hash2;
 
 /// Create an object that only contains [year] and [month] only
@@ -144,3 +145,7 @@ class YearMonthRange extends SetBase<YearMonth> {
     return List.from(_l, growable: growable);
   }
 }
+
+/// Get standarise [DateTime] string which is minified ISO 8061
+String getDTString(DateTime dateTime) =>
+    DateFormat("yyyy-MM-dd HH:mm:ss").format(dateTime);
