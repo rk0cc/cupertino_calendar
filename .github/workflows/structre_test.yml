@@ -10,7 +10,7 @@ jobs:
     defaults:
       run:
         working-directory: 'structre/**'
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.2
