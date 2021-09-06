@@ -7,9 +7,8 @@ void main() {
     expect(YearMonth(2021, 9).compareTo(YearMonth(2020, 8)), -13);
   });
   test("Get a set of YearMonth", () {
-    YearMonthRange tymr =
-        YearMonthRange(YearMonth(2021, 8), YearMonth(2022, 2));
-
-    expect(tymr.length, 7);
+    YearMonth f = YearMonth(2021, 8), t = YearMonth(2022, 2);
+    YearMonthRange tymr = YearMonthRange(f, t);
+    expect(tymr.length, f.compareTo(t) + 1);
   });
 }

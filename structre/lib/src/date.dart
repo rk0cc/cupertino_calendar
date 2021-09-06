@@ -47,23 +47,26 @@ class YearMonth implements Comparable<YearMonth> {
   @override
   bool operator ==(Object compare) =>
       // ignore: test_types_in_equals
-      _checkCompreObject(compare) && compareTo(compare as YearMonth) == 0;
+      _checkCompreObject(compare) &&
+      (compare as YearMonth).compareTo(this) == 0;
 
   /// Compare this [YearMonth] is greater than [compare]
   bool operator >(Object compare) =>
-      _checkCompreObject(compare) && compareTo(compare as YearMonth) > 0;
+      _checkCompreObject(compare) && (compare as YearMonth).compareTo(this) > 0;
 
   /// Combine operator of  [==] and [>]
   bool operator >=(Object compare) =>
-      _checkCompreObject(compare) && compareTo(compare as YearMonth) >= 0;
+      _checkCompreObject(compare) &&
+      (compare as YearMonth).compareTo(this) >= 0;
 
   /// Compare this [YearMonth] is lesser than [compare]
   bool operator <(Object compare) =>
-      _checkCompreObject(compare) && compareTo(compare as YearMonth) < 0;
+      _checkCompreObject(compare) && (compare as YearMonth).compareTo(this) < 0;
 
   /// Combine operator of  [==] and [<]
   bool operator <=(Object compare) =>
-      _checkCompreObject(compare) && compareTo(compare as YearMonth) <= 0;
+      _checkCompreObject(compare) &&
+      (compare as YearMonth).compareTo(this) <= 0;
 
   /// Hash code from [Obejct.hashCode], but not design for using [==].
   ///
@@ -107,6 +110,7 @@ class YearMonthRange extends SetBase<YearMonth> {
       }
       beginM = 1;
     }
+    assert(_ymr.length == from.compareTo(to) + 1);
   }
 
   @override
