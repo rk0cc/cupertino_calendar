@@ -12,10 +12,7 @@ class YearMonth implements Comparable<YearMonth> {
       YearMonth(dateTime.year, dateTime.month);
 
   /// Get current [year] and [month] from [DateTime.now]
-  factory YearMonth.now() {
-    DateTime n = DateTime.now();
-    return YearMonth(n.year, n.month);
-  }
+  factory YearMonth.now() => YearMonth.dateTime(DateTime.now());
 
   /// Get first day of [YearMonth] and convert back to [YearMonth]
   DateTime get firstDay => DateTime(year, month, 1);
