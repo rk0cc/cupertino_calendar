@@ -1,0 +1,22 @@
+name: Cupertino Calendar Structre test
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - structre/**
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: 'structre/**'
+    runs-on: ubuntu-lates
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.2
+      - name: Install dependencies
+        run: dart pub get
+      - name: Analyze project source
+        run: dart analyze
+      - name: Run tests
+        run: dart test
