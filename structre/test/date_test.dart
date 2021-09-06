@@ -1,5 +1,5 @@
-import 'package:cupertino_calendar_structre/cupertino_calendar_structre.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:cupertino_calendar_structre/src/date.dart';
+import 'package:test/test.dart';
 
 void main() {
   test("YearMonth compare", () {
