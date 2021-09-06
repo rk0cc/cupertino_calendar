@@ -28,7 +28,7 @@ void main() {
             expect(fdw.calculatePlaceholderFromStart(ym), ph);
           } on TestFailure catch (tf) {
             print(
-                "Incorrect value on ${ym.year} - ${ym.month} at ${fdw.toString()}");
+                "\x1B[31mIncorrect value on ${ym.year} - ${ym.month} at ${fdw.toString()}\x1B[0m");
             throw tf;
           }
         });
@@ -58,7 +58,7 @@ void main() {
             expect(fdw.calculatePlaceholderFromEnd(ym), ph);
           } on TestFailure catch (tf) {
             print(
-                "Incorrect value on ${ym.year} - ${ym.month} at ${fdw.toString()}");
+                "\x1B[31mIncorrect value on ${ym.year} - ${ym.month} at ${fdw.toString()}\x1B[0m");
             throw tf;
           }
         });
