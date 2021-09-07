@@ -1,3 +1,16 @@
-## 0.0.1
+## 1.0.0-beta-1
 
-* TODO: Describe initial release.
+Initial release version
+
+**Contains:**
+
+* Date
+    * `YearMonth`
+* Week
+    * `FirstDayOfWeek`
+* Date reminds
+    * `DateRemind`
+        * `DurationDateRemind`
+            * `Events`
+                * `AllDayEvents`
+        * `Holiday`
