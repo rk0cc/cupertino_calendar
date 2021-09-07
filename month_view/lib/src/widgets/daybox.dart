@@ -22,8 +22,13 @@ class PlaceholderDayBox extends DayBoxContent {
 
 /// Actual display [day]'s [Widget]
 class DayBox extends DayBoxContent {
+  /// A method for checking this [day] is equal with picked date
   final SelectedDayCondition condition;
+
+  /// Day of this [DayBox]
   final DateTime day;
+
+  /// Style of this [DAYbOX]
   final DayBoxStyle? style;
 
   DayBox({required this.condition, required this.day, this.style});
