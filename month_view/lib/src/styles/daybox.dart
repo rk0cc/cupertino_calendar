@@ -1,5 +1,6 @@
 part of 'styles.dart';
 
+/// Apply style for [DayBox]
 class DayBoxStyle {
   /// Define [DayBox]'s shape
   final BoxShape shape;

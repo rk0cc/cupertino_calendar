@@ -38,8 +38,8 @@ class DayBox extends DayBoxContent {
         padding: applyStyle.padding,
         decoration: BoxDecoration(
             shape: applyStyle.shape, color: themeProfile.background),
+        clipBehavior: Clip.antiAlias,
         child: Text(day.day.toString(),
-            style: themeProfile.textStyle, textAlign: TextAlign.center),
-        clipBehavior: Clip.antiAlias);
+            style: themeProfile.textStyle, textAlign: TextAlign.center));
   }
 }
