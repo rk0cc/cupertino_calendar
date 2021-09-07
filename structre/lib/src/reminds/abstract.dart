@@ -26,11 +26,12 @@ abstract class DurationDateRemind extends DateRemind {
   /// Create new remind with [name] and holding time [from] and [to]
   DurationDateRemind(String name, DateTime from, DateTime to)
       : _untilDt = to,
+        assert(from.isBefore(to) &&
+            to.isAfter(from) &&
+            !from.isAtSameMomentAs(to)),
         super(name, from);
 
   @override
   bool isOngoing(DateTime dateTime) =>
-      (dateTime.year >= _dt.year && dateTime.year <= _untilDt.year) &&
-      (dateTime.month >= _dt.month && dateTime.month <= _untilDt.month) &&
-      (dateTime.day >= _dt.day && dateTime.day <= _untilDt.day);
+      dateTime.isAfter(_dt) && dateTime.isBefore(_untilDt);
 }
