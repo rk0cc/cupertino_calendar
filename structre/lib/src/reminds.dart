@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:intl/intl.dart';
-import 'date.dart' show getDTString;
+import 'date.dart' show getDTString, getDString;
 part 'reminds/abstract.dart';
 part 'reminds/events.dart';
 part 'reminds/holiday.dart';

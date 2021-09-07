@@ -149,3 +149,7 @@ class YearMonthRange extends SetBase<YearMonth> {
 /// Get standarise [DateTime] string which is minified ISO 8061
 String getDTString(DateTime dateTime) =>
     DateFormat("yyyy-MM-dd HH:mm:ss").format(dateTime);
+
+/// Get date only string form [DateTime]
+String getDString(DateTime dateTime) =>
+    DateFormat("yyyy-MM-dd").format(dateTime);

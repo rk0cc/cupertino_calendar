@@ -14,6 +14,6 @@ class Holiday extends DateRemind {
 
   @override
   Map<String, dynamic> get json => {
-        "holiday": {"name": name, "date": getDTString(_dt)}
+        "holiday": {"name": name, "date": getDString(_dt)}
       };
 }
