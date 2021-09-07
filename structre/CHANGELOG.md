@@ -1,3 +1,7 @@
+## 1.0.0-beta-1+2
+
+Fix `YearMonth`'s hash code pointing issue
+
 ## 1.0.0-beta-1+1
 
 Add repository URL in pubspec
