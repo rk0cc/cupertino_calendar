@@ -76,7 +76,7 @@ class YearMonth implements Comparable<YearMonth> {
   ///
   /// Instead, is specific for [YearMonthRange]
   @override
-  int get hashCode => hash2(year.hashCode, month.hashCode);
+  int get hashCode => hash2(year, month);
 
   /// Implemented from [Comparable] which equal `0` means this and [other] are
   /// the same, greater than `0` means [other] is greater and lesser than `0`
