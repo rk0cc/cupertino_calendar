@@ -3,6 +3,7 @@ import '../widgets/widgets.dart';
 
 part 'daybox.dart';
 part 'grid.dart';
+part 'topbar.dart';
 
 /// A style class to define differents stage when toggled
 class StageThemePrefs {
