@@ -36,7 +36,7 @@ class DayBox extends DayBoxContent {
   @override
   Widget? _render(BuildContext context) {
     DayBoxStyle applyStyle = style ?? DayBoxStyle.getContextDefault(context);
-    var themeProfile =
+    StageThemePrefs themeProfile =
         condition(day) ? applyStyle.selected : applyStyle.unselected;
     return Container(
         alignment: Alignment.center,
