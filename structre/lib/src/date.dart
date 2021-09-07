@@ -39,6 +39,9 @@ class YearMonth implements Comparable<YearMonth> {
     return aD;
   }
 
+  String formatString({String format = "MMMM, yyyy", String? locale}) =>
+      DateFormat(format, locale).format(DateTime(year, month));
+
   /// Check today is contains in this month from [YearMonth.now]
   bool get todayInThisMonth => this == YearMonth.now();
 
