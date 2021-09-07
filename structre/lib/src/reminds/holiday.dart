@@ -1,7 +1,7 @@
 part of '../reminds.dart';
 
 /// An object for repersenting holiday
-class Holiday extends DateRemind {
+class Holiday extends SingleDateRemind {
   /// Create holiday
   Holiday({required String name, required DateTime date}) : super(name, date);
 

@@ -13,6 +13,15 @@ abstract class DateRemind {
   Map<String, dynamic> get json;
 
   /// Checking this remind is ongoing
+  bool isOngoing(DateTime dateTime);
+}
+
+/// A [DateRemind] for happen in entire day without range
+abstract class SingleDateRemind extends DateRemind {
+  /// Create new [SingleDateRemind]
+  SingleDateRemind(String name, DateTime dateTime) : super(name, dateTime);
+
+  @override
   bool isOngoing(DateTime dateTime) =>
       dateTime.year == _dt.year &&
       dateTime.month == _dt.month &&
@@ -34,4 +43,13 @@ abstract class DurationDateRemind extends DateRemind {
   @override
   bool isOngoing(DateTime dateTime) =>
       dateTime.isAfter(_dt) && dateTime.isBefore(_untilDt);
+
+  /// Like [isOngoing], but check [dateTime]'s date only
+  bool isOngoingDate(DateTime dateTime) =>
+      (dateTime.year >= _dt.year &&
+          dateTime.month >= _dt.month &&
+          dateTime.day >= _dt.day) &&
+      (dateTime.year <= _untilDt.year &&
+          dateTime.month <= _untilDt.month &&
+          dateTime.day <= _untilDt.day);
 }

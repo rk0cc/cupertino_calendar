@@ -10,7 +10,7 @@ part 'reminds/holiday.dart';
 /// [dr] is the [List] which stored in [DateRemindList] internally
 typedef DateRemindObjectResolver = void Function(List<DateRemind> dr);
 
-/// A list for containiing [DateRemind] object
+/// A list for containing [DateRemind] object
 class DateRemindList extends ListBase<DateRemind> {
   final List<DateRemind> _drl;
 
