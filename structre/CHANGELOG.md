@@ -1,3 +1,7 @@
+## 1.0.0-beta-2+1
+
+Hide `getDString` in export
+
 ## 1.0.0-beta-2
 
 * Add `SingleDateRemind` under `DateRemind`
