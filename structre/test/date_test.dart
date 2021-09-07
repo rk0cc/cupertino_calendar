@@ -13,4 +13,15 @@ void main() {
     YearMonthRange tymr = YearMonthRange(f, t);
     expect(tymr.length, f.compareTo(t) + 1);
   });
+  test("Day generated from YearMonth", () {
+    expect(YearMonth(2021, 8).allDaysInMonth.length, 31);
+    expect(YearMonth(2020, 2).allDaysInMonth.length, 29);
+    expect(YearMonth(2021, 2).allDaysInMonth.length, 28);
+  });
+  test("Get now YearMonth", () {
+    DateTime today = DateTime.now();
+    YearMonth tM = YearMonth.now();
+    expect(tM.year, today.year);
+    expect(tM.month, today.month);
+  });
 }
