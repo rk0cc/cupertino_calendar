@@ -32,6 +32,8 @@ class Events extends DurationDateRemind {
 /// An [Events] which hold a whole day
 class AllDayEvents extends Events {
   /// Create all day events
+  ///
+  /// [from] and [to]'s time will be overwritten `00:00:00` and `23:59:59`
   AllDayEvents(
       {required String name,
       required DateTime from,
