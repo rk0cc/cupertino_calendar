@@ -1,7 +1,10 @@
 import 'package:cupertino_calenar_month_view/src/widgets/widgets.dart'
     show MonthGrid;
 import 'package:cupertino_calendar_structre/cupertino_calendar_structre.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'mockapp.dart';
 
 void main() {
   group("Applying events and holidays", () {
@@ -50,5 +53,6 @@ void main() {
                     to: DateTime(2021, 10, 15)))),
           throwsA(isA<AssertionError>()));
     });
+    group("Widget test", () {});
   });
 }

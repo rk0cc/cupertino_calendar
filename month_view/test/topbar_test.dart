@@ -6,6 +6,8 @@ import 'package:cupertino_calenar_month_view/src/widgets/widgets.dart'
 import 'package:cupertino_calenar_month_view/src/styles/styles.dart'
     show CalendarTopBarStyle, MonthApperance;
 
+import 'mockapp.dart';
+
 class TopBarTestContainer extends StatefulWidget {
   final YearMonthRange range =
       YearMonthRange(YearMonth(2021, 7), YearMonth(2021, 12));
@@ -48,26 +50,18 @@ class TopBarTestContainerState extends State<TopBarTestContainer> {
       );
 }
 
-class MockHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) =>
-      CupertinoPageScaffold(child: TopBarTestContainer());
-}
-
-CupertinoApp mockApp = CupertinoApp(home: MockHomePage());
-
 void main() {
   testWidgets("Check default date format pattern", (WidgetTester tester) async {
     var currentMonthStr = YearMonth(2021, 9).formatString(format: "MMM, yyyy");
     expect(currentMonthStr, "Sep, 2021");
-    await tester.pumpWidget(mockApp);
+    await tester.pumpWidget(MockApp(TopBarTestContainer()));
     expect(find.text(currentMonthStr), findsOneWidget);
   });
   group("Mock press to previous month", () {
     var julyStr = YearMonth(2021, 7).formatString(format: "MMM, yyyy");
     test("check is valid July format", () => expect(julyStr, "Jul, 2021"));
     testWidgets("to July", (WidgetTester tester) async {
-      await tester.pumpWidget(mockApp);
+      await tester.pumpWidget(MockApp(TopBarTestContainer()));
       final previousBtn = find.byIcon(CupertinoIcons.left_chevron);
       for (int p = 0; p < 2; p++) {
         await tester.tap(previousBtn);
@@ -76,7 +70,7 @@ void main() {
       expect(find.text(julyStr), findsOneWidget);
     });
     testWidgets("no change after reach July", (WidgetTester tester) async {
-      await tester.pumpWidget(mockApp);
+      await tester.pumpWidget(MockApp(TopBarTestContainer()));
       final previousBtn = find.byIcon(CupertinoIcons.left_chevron);
       for (int p = 0; p < 3; p++) {
         await tester.tap(previousBtn);
@@ -92,7 +86,7 @@ void main() {
     test("check is valid Novenber format",
         () => expect(novemberStr, "Nov, 2021"));
     testWidgets("to November", (WidgetTester tester) async {
-      await tester.pumpWidget(mockApp);
+      await tester.pumpWidget(MockApp(TopBarTestContainer()));
       final nextBtn = find.byIcon(CupertinoIcons.right_chevron);
       for (int p = 0; p < 2; p++) {
         await tester.tap(nextBtn);
@@ -101,7 +95,7 @@ void main() {
       expect(find.text(novemberStr), findsOneWidget);
     });
     testWidgets("no change after reach December", (WidgetTester tester) async {
-      await tester.pumpWidget(mockApp);
+      await tester.pumpWidget(MockApp(TopBarTestContainer()));
       final nextBtn = find.byIcon(CupertinoIcons.right_chevron);
       for (int p = 0; p < 4; p++) {
         await tester.tap(nextBtn);
