@@ -28,6 +28,9 @@ class DayBox extends DayBoxContent {
   /// Check this day is a holiday
   final DayCondition isHoliday;
 
+  /// Check has [Events] on this day
+  final DayCondition hasEvent;
+
   /// Day of this [DayBox]
   final DateTime day;
 
@@ -37,6 +40,7 @@ class DayBox extends DayBoxContent {
   DayBox(
       {required this.pickedCondition,
       required this.isHoliday,
+      required this.hasEvent,
       required this.day,
       this.style});
 

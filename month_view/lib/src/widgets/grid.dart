@@ -14,12 +14,16 @@ class MonthGrid extends StatefulWidget {
   /// Get holiday in this month
   final List<Holiday> holidayInThisMonth;
 
+  /// Get holiday in this month
+  final List<Events> eventsInThisMonth;
+
   final List<DateTime?> _dim;
 
   /// Create new [GridView] of [yearMonth]
   MonthGrid(this.yearMonth,
       {this.firstDayOfWeek = FirstDayOfWeek.sun,
       this.dayBoxStyle,
+      this.eventsInThisMonth = const <Events>[],
       this.holidayInThisMonth = const <Holiday>[]})
       : _dim = List<DateTime?>.filled(
             firstDayOfWeek.calculatePlaceholderFromStart(yearMonth), null)
@@ -32,7 +36,19 @@ class MonthGrid extends StatefulWidget {
                     hd.dateTime.year != yearMonth.year ||
                     hd.dateTime.month != yearMonth.month)
                 .isEmpty,
-            "Only related year and month can be existed in current MonthView's holiday list");
+            "Only related year and month can be existed in current MonthView's holiday list"),
+        assert(
+            eventsInThisMonth.where((ed) {
+              if (ed.from.year > yearMonth.year || ed.to.year < yearMonth.year)
+                return true;
+              else if (ed.from.year == yearMonth.year &&
+                  ed.from.month < yearMonth.month)
+                return true;
+              else if (ed.to.year == yearMonth.year &&
+                  ed.to.month > yearMonth.month) return true;
+              return false;
+            }).isEmpty,
+            "Only happened during this YearMonth can be existed in current MonthView's event list");
 
   @override
   State<MonthGrid> createState() => MonthGridState();
@@ -66,6 +82,12 @@ class MonthGridState extends State<MonthGrid> {
               : DayBox(
                   isHoliday: (dt) => widget.holidayInThisMonth
                       .where((hd) => hd.dateTime.isAtSameMomentAs(dt))
+                      .isNotEmpty,
+                  hasEvent: (dt) => widget.eventsInThisMonth
+                      .where((ed) => (ed.from.isAfter(dt) ||
+                          ed.from.isAtSameMomentAs(dt) &&
+                              (ed.to.isBefore(dt) ||
+                                  ed.to.isAtSameMomentAs(dt))))
                       .isNotEmpty,
                   pickedCondition: (dt) =>
                       dt.year == currentPicked.year &&
