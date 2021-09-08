@@ -71,29 +71,28 @@ class MonthGridState extends State<MonthGrid> {
   }
 
   @override
-  Widget build(BuildContext context) => FittedBox(
-      child: GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
-          itemCount: widget._dim.length,
-          padding: EdgeInsets.zero,
-          itemBuilder: (context, count) => widget._dim[count] == null
-              ? PlaceholderDayBox()
-              : DayBox(
-                  isHoliday: (dt) => widget.holidayInThisMonth
-                      .where((hd) => hd.dateTime.isAtSameMomentAs(dt))
-                      .isNotEmpty,
-                  hasEvent: (dt) => widget.eventsInThisMonth
-                      .where((ed) => (ed.from.isAfter(dt) ||
-                          ed.from.isAtSameMomentAs(dt) &&
-                              (ed.to.isBefore(dt) ||
-                                  ed.to.isAtSameMomentAs(dt))))
-                      .isNotEmpty,
-                  pickedCondition: (dt) =>
-                      dt.year == currentPicked.year &&
-                      dt.month == currentPicked.month &&
-                      dt.day == currentPicked.day,
-                  day: widget._dim[count]!,
-                  style: widget.dayBoxStyle)));
+  Widget build(BuildContext context) => GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
+      itemCount: widget._dim.length,
+      padding: EdgeInsets.zero,
+      itemBuilder: (context, count) => widget._dim[count] == null
+          ? PlaceholderDayBox()
+          : DayBox(
+              isHoliday: (dt) => widget.holidayInThisMonth
+                  .where((hd) => hd.dateTime.isAtSameMomentAs(dt))
+                  .isNotEmpty,
+              hasEvent: (dt) => widget.eventsInThisMonth
+                  .where((ed) => (ed.from.isAfter(dt) ||
+                      ed.from.isAtSameMomentAs(dt) &&
+                          (ed.to.isBefore(dt) || ed.to.isAtSameMomentAs(dt))))
+                  .isNotEmpty,
+              pickedCondition: (dt) =>
+                  dt.year == currentPicked.year &&
+                  dt.month == currentPicked.month &&
+                  dt.day == currentPicked.day,
+              day: widget._dim[count]!,
+              style: widget.dayBoxStyle));
 }
