@@ -22,6 +22,8 @@ class DayBoxStyle {
   final TextStyle? unselectedTextStyle;
 
   /// Define unselected text colour when [DayBox] containing Saturday [DateTime]
+  ///
+  /// It will use [unselectedTextStyle] if omitted
   final TextStyle? unselectedSaturdayTextStyle;
 
   /// Define unselected text colour when [DayBox] containing Sunday [DateTime]

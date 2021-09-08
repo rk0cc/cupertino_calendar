@@ -68,7 +68,7 @@ class DayBox extends DayBoxContent {
                 return hdayTheme;
               case 6:
                 return applyStyle.unselectedSaturdayTextStyle ??
-                    themeData.textTheme.textStyle;
+                    applyStyle.unselectedTextStyle;
               default:
                 return applyStyle.unselectedTextStyle;
             }
