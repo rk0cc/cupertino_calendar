@@ -1,11 +1,26 @@
 part of 'widgets.dart';
 
+/// A panel [Widget] for displaying current [YearMonth]
+/// and changing to another month
 class CalendarTopBar extends StatelessWidget {
+  /// Current page of [YearMonth]
   final YearMonth yearMonth;
+
+  /// Range of the begin and end of the [YearMonth] in the calendar
   final YearMonthRange range;
+
+  /// Handler for swapping to previous month
   final void Function() onPrevious;
+
+  /// Handler for swapping to next month
   final void Function() onNext;
+
+  /// Style preference for [CalendarTopBar]
   final CalendarTopBarStyle? style;
+
+  /// Applying locale specific date format
+  ///
+  /// Leave [Null] for using generic format
   final String? locale;
 
   CalendarTopBar(

@@ -65,9 +65,8 @@ void main() {
   });
   group("Mock press to previous month", () {
     var julyStr = YearMonth(2021, 7).formatString(format: "MMM, yyyy");
-    testWidgets("Mock pressing previous month to July",
-        (WidgetTester tester) async {
-      expect(julyStr, "Jul, 2021");
+    test("check is valid July format", () => expect(julyStr, "Jul, 2021"));
+    testWidgets("to July", (WidgetTester tester) async {
       await tester.pumpWidget(mockApp);
       final previousBtn = find.byIcon(CupertinoIcons.left_chevron);
       for (int p = 0; p < 2; p++) {
@@ -76,16 +75,42 @@ void main() {
       await tester.pump();
       expect(find.text(julyStr), findsOneWidget);
     });
-    testWidgets("No addition change when reached July",
-        (WidgetTester tester) async {
-      expect(julyStr, "Jul, 2021");
+    testWidgets("no change after reach July", (WidgetTester tester) async {
       await tester.pumpWidget(mockApp);
       final previousBtn = find.byIcon(CupertinoIcons.left_chevron);
-      for (int p = 0; p < 2; p++) {
+      for (int p = 0; p < 3; p++) {
         await tester.tap(previousBtn);
+
+        // Keep update it to ensure the button will be disabled when reached July
+        await tester.pump();
+      }
+      expect(find.text(julyStr), findsOneWidget);
+    });
+  });
+  group("Mock press to next Month", () {
+    var novemberStr = YearMonth(2021, 11).formatString(format: "MMM, yyyy");
+    test("check is valid Novenber format",
+        () => expect(novemberStr, "Nov, 2021"));
+    testWidgets("to November", (WidgetTester tester) async {
+      await tester.pumpWidget(mockApp);
+      final nextBtn = find.byIcon(CupertinoIcons.right_chevron);
+      for (int p = 0; p < 2; p++) {
+        await tester.tap(nextBtn);
       }
       await tester.pump();
-      expect(find.text(julyStr), findsOneWidget);
+      expect(find.text(novemberStr), findsOneWidget);
+    });
+    testWidgets("no change after reach December", (WidgetTester tester) async {
+      await tester.pumpWidget(mockApp);
+      final nextBtn = find.byIcon(CupertinoIcons.right_chevron);
+      for (int p = 0; p < 4; p++) {
+        await tester.tap(nextBtn);
+
+        // Keep update it to ensure the button will be disabled when reached July
+        await tester.pump();
+      }
+      expect(find.text(YearMonth(2021, 12).formatString(format: "MMM, yyyy")),
+          findsOneWidget);
     });
   });
 }
