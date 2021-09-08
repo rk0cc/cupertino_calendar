@@ -60,6 +60,7 @@ class MonthGridState extends State<MonthGrid> {
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
           itemCount: widget._dim.length,
+          padding: EdgeInsets.zero,
           itemBuilder: (context, count) => widget._dim[count] == null
               ? PlaceholderDayBox()
               : DayBox(
