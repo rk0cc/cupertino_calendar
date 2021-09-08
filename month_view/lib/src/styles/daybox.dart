@@ -1,6 +1,7 @@
 part of 'styles.dart';
 
 /// Apply style for [DayBox]
+@immutable
 class DayBoxStyle {
   /// Define [DayBox]'s shape
   final BoxShape shape;

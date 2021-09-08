@@ -6,6 +6,7 @@ part 'grid.dart';
 part 'topbar.dart';
 
 /// A style class to define differents stage when toggled
+@immutable
 class StageThemePrefs {
   /// Background [Color] when this stage
   final Color background;
