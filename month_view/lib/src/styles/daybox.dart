@@ -9,32 +9,24 @@ class DayBoxStyle {
   /// Define [DayBox] padding size
   final EdgeInsets padding;
 
-  /// Define selected theme preference
-  final StageThemePrefs selected;
+  /// Define selected background colour
+  final Color? selectedBackground;
 
-  /// Define unselected theme preference
-  final StageThemePrefs unselected;
+  /// Define unselected background colour
+  final Color? unselectedBackground;
+
+  /// Define selected text colour
+  final TextStyle? selectedTextStyle;
+
+  /// Define unselected text colour
+  final TextStyle? unselectedTextStyle;
 
   /// Assign style data of [DayBox]
   const DayBoxStyle(
       {this.shape = BoxShape.rectangle,
       this.padding = const EdgeInsets.all(6),
-      required this.selected,
-      required this.unselected});
-
-  /// Load default style data from [context]
-  ///
-  /// Use this if [DayBox]'s style assign as null
-  factory DayBoxStyle.getContextDefault(BuildContext context) {
-    var themeData = CupertinoTheme.of(context);
-    var activeStyle = StageThemePrefs(
-        themeData.primaryColor,
-        themeData.textTheme
-            .copyWith(
-                textStyle: TextStyle(color: themeData.primaryContrastingColor))
-            .textStyle);
-    var inactiveStyle = StageThemePrefs(
-        themeData.scaffoldBackgroundColor, themeData.textTheme.textStyle);
-    return DayBoxStyle(selected: activeStyle, unselected: inactiveStyle);
-  }
+      this.selectedBackground,
+      this.unselectedBackground,
+      this.selectedTextStyle,
+      this.unselectedTextStyle});
 }

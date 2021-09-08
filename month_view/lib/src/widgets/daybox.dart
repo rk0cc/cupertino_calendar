@@ -35,16 +35,25 @@ class DayBox extends DayBoxContent {
 
   @override
   Widget? _render(BuildContext context) {
-    DayBoxStyle applyStyle = style ?? DayBoxStyle.getContextDefault(context);
-    StageThemePrefs themeProfile =
-        condition(day) ? applyStyle.selected : applyStyle.unselected;
+    DayBoxStyle applyStyle = style ?? DayBoxStyle();
+    var themeData = CupertinoTheme.of(context);
+    var bg = condition(day)
+        ? applyStyle.selectedBackground ?? themeData.primaryColor
+        : applyStyle.unselectedBackground;
+    var ts = condition(day)
+        ? applyStyle.selectedTextStyle ??
+            themeData.textTheme
+                .copyWith(
+                    textStyle:
+                        TextStyle(color: themeData.primaryContrastingColor))
+                .textStyle
+        : applyStyle.unselectedTextStyle;
     return Container(
         alignment: Alignment.center,
         padding: applyStyle.padding,
-        decoration: BoxDecoration(
-            shape: applyStyle.shape, color: themeProfile.background),
+        decoration: BoxDecoration(shape: applyStyle.shape, color: bg),
         clipBehavior: Clip.antiAlias,
-        child: Text(day.day.toString(),
-            style: themeProfile.textStyle, textAlign: TextAlign.center));
+        child:
+            Text(day.day.toString(), style: ts, textAlign: TextAlign.center));
   }
 }
