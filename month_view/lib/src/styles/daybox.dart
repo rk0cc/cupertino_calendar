@@ -21,6 +21,13 @@ class DayBoxStyle {
   /// Define unselected text colour
   final TextStyle? unselectedTextStyle;
 
+  /// Define unselected text colour when [DayBox] containing Saturday [DateTime]
+  final TextStyle? unselectedSaturdayTextStyle;
+
+  /// Define unselected text colour when [DayBox] containing Sunday [DateTime]
+  /// or this day is [Holiday]
+  final TextStyle? unselectedHolidayTextStyle;
+
   /// Assign style data of [DayBox]
   const DayBoxStyle(
       {this.shape = BoxShape.rectangle,
@@ -28,5 +35,7 @@ class DayBoxStyle {
       this.selectedBackground,
       this.unselectedBackground,
       this.selectedTextStyle,
-      this.unselectedTextStyle});
+      this.unselectedTextStyle,
+      this.unselectedSaturdayTextStyle,
+      this.unselectedHolidayTextStyle});
 }

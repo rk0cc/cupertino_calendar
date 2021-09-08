@@ -1,9 +1,9 @@
 part of 'widgets.dart';
 
-/// A handler for checking picked day
+/// A handler for day in [DayBox]
 ///
 /// [dbd] is [DateTime] of [DayBox]
-typedef SelectedDayCondition = bool Function(DateTime dbd);
+typedef DayCondition = bool Function(DateTime dbd);
 
 /// A generic class for building context of the grid
 abstract class DayBoxContent extends StatelessWidget {
@@ -23,31 +23,56 @@ class PlaceholderDayBox extends DayBoxContent {
 /// Actual display [day]'s [Widget]
 class DayBox extends DayBoxContent {
   /// A method for checking this [day] is equal with picked date
-  final SelectedDayCondition condition;
+  final DayCondition pickedCondition;
+
+  /// Check this day is a holiday
+  final DayCondition isHoliday;
 
   /// Day of this [DayBox]
   final DateTime day;
 
-  /// Style of this [DAYbOX]
+  /// Style of this [DayBox]
   final DayBoxStyle? style;
 
-  DayBox({required this.condition, required this.day, this.style});
+  DayBox(
+      {required this.pickedCondition,
+      required this.isHoliday,
+      required this.day,
+      this.style});
 
   @override
   Widget? _render(BuildContext context) {
     DayBoxStyle applyStyle = style ?? DayBoxStyle();
     var themeData = CupertinoTheme.of(context);
-    var bg = condition(day)
+    var bg = pickedCondition(day)
         ? applyStyle.selectedBackground ?? themeData.primaryColor
         : applyStyle.unselectedBackground;
-    var ts = condition(day)
+    var ts = pickedCondition(day)
         ? applyStyle.selectedTextStyle ??
             themeData.textTheme
                 .copyWith(
                     textStyle:
                         TextStyle(color: themeData.primaryContrastingColor))
                 .textStyle
-        : applyStyle.unselectedTextStyle;
+        : (() {
+            var hdayTheme = applyStyle.unselectedHolidayTextStyle ??
+                themeData.textTheme
+                    .copyWith(
+                        textStyle: TextStyle(color: CupertinoColors.systemRed))
+                    .textStyle;
+            if (isHoliday(day)) {
+              return hdayTheme;
+            }
+            switch (day.weekday) {
+              case 7:
+                return hdayTheme;
+              case 6:
+                return applyStyle.unselectedSaturdayTextStyle ??
+                    themeData.textTheme.textStyle;
+              default:
+                return applyStyle.unselectedTextStyle;
+            }
+          })();
     return Container(
         alignment: Alignment.center,
         padding: applyStyle.padding,
