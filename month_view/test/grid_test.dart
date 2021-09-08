@@ -1,5 +1,5 @@
 import 'package:cupertino_calenar_month_view/src/widgets/widgets.dart'
-    show MonthGrid, MonthGridState;
+    show MonthGrid;
 import 'package:cupertino_calendar_structre/cupertino_calendar_structre.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -24,6 +24,10 @@ void main() {
             name: "Sample event 1",
             from: DateTime(2021, 8, 25, 13, 0, 0),
             to: DateTime(2021, 10, 5, 8, 0, 0)),
+        Events(
+            name: "Sample event 2",
+            from: DateTime(2021, 9, 1, 0, 0, 0),
+            to: DateTime(2021, 9, 1, 1, 0, 0)),
         AllDayEvents(
             name: "Sample all day event",
             from: DateTime(2021, 8, 29),
