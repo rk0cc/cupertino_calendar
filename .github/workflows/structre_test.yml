@@ -6,11 +6,12 @@ on:
     paths:
       - structre/lib/**.dart
       - structre/test/**.dart
+      - .github/workflows/structre_test.yml
+defaults:
+  run:
+    working-directory: structre
 jobs:
   build:
-    defaults:
-      run:
-        working-directory: structre
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
