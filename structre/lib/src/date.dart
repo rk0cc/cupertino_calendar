@@ -144,7 +144,7 @@ class YearMonthRange extends SetBase<YearMonth> {
   @override
   List<YearMonth> toList({bool growable = false}) {
     List<YearMonth> _l = _ymr.toList();
-    _l.sort((a, b) => a.compareTo(b));
+    _l.sort((a, b) => b.compareTo(a));
     return List.from(_l, growable: growable);
   }
 }

@@ -1,3 +1,7 @@
+## 1.0.0-beta-3
+
+Fix `YearMonthRange` incorrect sort order issue
+
 ## 1.0.0-beta-2+1
 
 Hide `getDString` in export

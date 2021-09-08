@@ -24,4 +24,10 @@ void main() {
     expect(tM.year, today.year);
     expect(tM.month, today.month);
   });
+  test("Check sort order", () {
+    var f = YearMonth(2021, 3), t = YearMonth(2021, 8);
+    YearMonthRange testRange = YearMonthRange(f, t);
+    expect(testRange.toList().first, equals(f));
+    expect(testRange.toList().last, equals(t));
+  });
 }
