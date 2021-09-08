@@ -42,10 +42,10 @@ class MonthGrid extends StatefulWidget {
               if (ed.from.year > yearMonth.year || ed.to.year < yearMonth.year)
                 return true;
               else if (ed.from.year == yearMonth.year &&
-                  ed.from.month < yearMonth.month)
+                  ed.from.month > yearMonth.month)
                 return true;
               else if (ed.to.year == yearMonth.year &&
-                  ed.to.month > yearMonth.month) return true;
+                  ed.to.month < yearMonth.month) return true;
               return false;
             }).isEmpty,
             "Only happened during this YearMonth can be existed in current MonthView's event list");
