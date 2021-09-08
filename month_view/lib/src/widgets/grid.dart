@@ -26,7 +26,8 @@ class MonthGrid extends StatefulWidget {
       this.eventsInThisMonth = const <Events>[],
       this.holidayInThisMonth = const <Holiday>[]})
       : _dim = List<DateTime?>.filled(
-            firstDayOfWeek.calculatePlaceholderFromStart(yearMonth), null)
+            firstDayOfWeek.calculatePlaceholderFromStart(yearMonth), null,
+            growable: true)
           ..addAll(yearMonth.allDaysInMonth)
           ..addAll(List.filled(
               firstDayOfWeek.calculatePlaceholderFromEnd(yearMonth), null)),
