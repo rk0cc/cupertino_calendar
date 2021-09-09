@@ -83,7 +83,9 @@ void main() {
       late DateTime targetTap;
       do {
         targetTap = aDIM.elementAt(random.nextInt(aDIM.length));
-      } while (targetTap.day != todayIntD);
+      } while (targetTap.day == todayIntD);
+      print(
+          "Target tapping day: ${targetTap.year}-${targetTap.month}-${targetTap.day}");
       final preferedTapDayBox = find.ancestor(
           of: find.text(targetTap.day.toString()),
           matching: find.byType(DayBox));
