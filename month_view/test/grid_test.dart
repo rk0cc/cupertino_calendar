@@ -84,6 +84,19 @@ void main() {
       do {
         targetTap = aDIM.elementAt(random.nextInt(aDIM.length));
       } while (targetTap.day != todayIntD);
+      final preferedTapDayBox = find.ancestor(
+          of: find.text(targetTap.day.toString()),
+          matching: find.byType(DayBox));
+      expect(preferedTapDayBox, findsOneWidget);
+      await tester.tap(preferedTapDayBox);
+      await tester.pump();
+      expect(
+          (tester
+                  .widget<Container>(find.descendant(
+                      of: preferedTapDayBox, matching: find.byType(Container)))
+                  .decoration as BoxDecoration)
+              .color,
+          CupertinoColors.activeBlue);
     });
   });
 }
