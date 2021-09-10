@@ -1,4 +1,4 @@
-import 'package:cupertino_calenar_month_view/src/widgets/widgets.dart'
+import 'package:cupertino_calendar_month_view/src/widgets/widgets.dart'
     show DayBox;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';

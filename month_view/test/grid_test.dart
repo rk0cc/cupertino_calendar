@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:cupertino_calenar_month_view/src/widgets/widgets.dart'
+import 'package:cupertino_calendar_month_view/src/widgets/widgets.dart'
     show MonthGrid, DayBox;
 import 'package:cupertino_calendar_structre/cupertino_calendar_structre.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,7 +59,8 @@ void main() {
   group("Widget test", () {
     var mA = MockApp(Container(width: 300, height: 600, child: MonthGrid(tym)));
     var today = DateTime.now();
-    print("Today is ${today.year}-${today.month}-${today.day},\nit will not be used as the day of tapping test");
+    print(
+        "Today is ${today.year}-${today.month}-${today.day},\nit will not be used as the day of tapping test");
     int todayIntD = today.day;
     testWidgets("find highlighted day", (WidgetTester tester) async {
       final String todayDay = todayIntD.toString();
