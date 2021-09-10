@@ -53,3 +53,11 @@ abstract class DurationDateRemind extends DateRemind {
           dateTime.month <= _untilDt.month &&
           dateTime.day <= _untilDt.day);
 }
+
+/// Allowing convert to [D] with existed class
+///
+/// [D] can be [Events], [Holiday] and inherited classes
+mixin DateRemindGenerator<D extends DateRemind> {
+  /// Export the [remindObject] in implemented class
+  D get remindObject;
+}

@@ -7,10 +7,10 @@ part 'reminds/holiday.dart';
 
 /// Resolving date remind object which crawl from other sources
 ///
-/// [dr] is the [List] which stored in [DateRemindList] internally
+/// [dr] is the [List] of [Events] and [Holiday] which stored in [DateRemindList] internally
 typedef DateRemindObjectResolver = void Function(List<DateRemind> dr);
 
-/// A list for containing [DateRemind] object
+/// A list for containing [Events] and [Holiday] object
 class DateRemindList extends ListBase<DateRemind> {
   final List<DateRemind> _drl;
 
@@ -35,6 +35,9 @@ class DateRemindList extends ListBase<DateRemind> {
   @override
   void operator []=(int index, DateRemind value) => _drl[index] = value;
 
+  /// [DateRemindList] can not assign new length
+  ///
+  /// It will throws [UnsupportedError] if did it
   @override
   set length(int newLength) =>
       throw UnsupportedError("You can't assign new length in this list");

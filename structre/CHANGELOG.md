@@ -1,3 +1,8 @@
+## 1.0.0-beta-4
+
+* Hide `DateRemind` and it abstracted classes
+* Add `DateRemindGenerator` for exporting `Events` and `Holiday` in existed class
+
 ## 1.0.0-beta-3
 
 Fix `YearMonthRange` incorrect sort order issue
