@@ -58,7 +58,9 @@ void main() {
   });
   group("Widget test", () {
     var mA = MockApp(Container(width: 300, height: 600, child: MonthGrid(tym)));
-    int todayIntD = DateTime.now().day;
+    var today = DateTime.now();
+    print("Today is ${today.year}-${today.month}-${today.day},\nit will not be used as the day of tapping test");
+    int todayIntD = today.day;
     testWidgets("find highlighted day", (WidgetTester tester) async {
       final String todayDay = todayIntD.toString();
       await tester.pumpWidget(mA);
