@@ -64,6 +64,8 @@ class MonthGridState extends State<MonthGrid> {
   void initState() {
     assert(widget._dim.length % 7 == 0,
         "The length of day in month must be able to cover entire row of GridView");
+
+    // Pick today or the first day of month
     currentPicked = widget.yearMonth.todayInThisMonth
         ? DateTime.now()
         : widget.yearMonth.firstDay;
@@ -87,10 +89,10 @@ class MonthGridState extends State<MonthGrid> {
                       .where((hd) => hd.dateTime.isAtSameMomentAs(dt))
                       .isNotEmpty,
                   hasEvent: (dt) => widget.eventsInThisMonth
-                      .where((ed) => (ed.from.isAfter(dt) ||
-                          ed.from.isAtSameMomentAs(dt)) &&
-                              (ed.to.isBefore(dt) ||
-                                  ed.to.isAtSameMomentAs(dt)))
+                      .where((ed) =>
+                          (ed.from.isAfter(dt) ||
+                              ed.from.isAtSameMomentAs(dt)) &&
+                          (ed.to.isBefore(dt) || ed.to.isAtSameMomentAs(dt)))
                       .isNotEmpty,
                   pickedCondition: (dt) =>
                       dt.year == currentPicked.year &&
