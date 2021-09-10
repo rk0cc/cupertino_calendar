@@ -88,9 +88,9 @@ class MonthGridState extends State<MonthGrid> {
                       .isNotEmpty,
                   hasEvent: (dt) => widget.eventsInThisMonth
                       .where((ed) => (ed.from.isAfter(dt) ||
-                          ed.from.isAtSameMomentAs(dt) &&
+                          ed.from.isAtSameMomentAs(dt)) &&
                               (ed.to.isBefore(dt) ||
-                                  ed.to.isAtSameMomentAs(dt))))
+                                  ed.to.isAtSameMomentAs(dt)))
                       .isNotEmpty,
                   pickedCondition: (dt) =>
                       dt.year == currentPicked.year &&
