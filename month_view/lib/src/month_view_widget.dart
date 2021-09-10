@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'widgets/widgets.dart';
+import 'widgets/widgets.dart' hide MonthGridState;
 import 'styles/styles.dart';
 
 class MonthView extends StatefulWidget {
