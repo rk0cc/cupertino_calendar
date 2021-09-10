@@ -4,10 +4,13 @@ version: 1.0.0-beta-1
 homepage: https://www.rk0cc.xyz
 environment:
   sdk: ">=2.13.0 <3.0.0"
-  flutter: ">=2.2.0"
+  flutter: ">=2.2.3"
 dependencies:
   flutter:
     sdk: flutter
+  cupertino_calendar_structre: ^1.0.0-beta-4
+  # cupertino_calendar_month_view: ^1.0.0-beta-1
+  # cupertino_calendar_date_remind_view: ^1.0.0-beta-1
 dev_dependencies:
   flutter_test:
     sdk: flutter
