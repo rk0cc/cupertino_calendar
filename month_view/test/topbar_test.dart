@@ -1,4 +1,4 @@
-import 'package:cupertino_calendar_structre/cupertino_calendar_structre.dart';
+import 'package:cupertino_calendar_structre/structre.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cupertino_calendar_month_view/src/widgets/widgets.dart'
