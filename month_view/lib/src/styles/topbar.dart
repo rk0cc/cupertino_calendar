@@ -22,12 +22,13 @@ class CalendarTopBarStyle {
   final MonthApperance yearMonthFormat;
 
   /// Create styles preference of [CalendarTopBar]
-  const CalendarTopBarStyle(
-      {this.iconSize = 28,
-      this.active,
-      this.inactive,
-      this.yearMonthTextStyle,
-      this.yearMonthFormat = MonthApperance.fullname});
+  const CalendarTopBarStyle({
+    this.iconSize = 28,
+    this.active,
+    this.inactive,
+    this.yearMonthTextStyle,
+    this.yearMonthFormat = MonthApperance.fullname,
+  });
 }
 
 /// Determine what pattern will be used for displaying [YearMonth] string

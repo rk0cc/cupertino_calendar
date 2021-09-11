@@ -6,7 +6,14 @@ void main() => runApp(MonthViewExample());
 
 class MonthViewExample extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => CupertinoApp();
+  Widget build(BuildContext context) => CupertinoApp(home: DemoHomePage());
+}
+
+class DemoHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text("Month view demo")),
+      child: MonthViewDemoWidget());
 }
 
 class MonthViewDemoWidget extends StatefulWidget {

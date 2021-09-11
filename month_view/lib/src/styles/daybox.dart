@@ -30,10 +30,15 @@ class DayBoxStyle {
   /// or this day is [Holiday]
   final TextStyle? unselectedHolidayTextStyle;
 
+  /// A ratio value for adjusting month view's [DayBox]s' width size to ensure
+  /// all month can be shown without scrolling in [GridView]
+  final double landscapeWidthRatio;
+
   /// Assign style data of [DayBox]
   const DayBoxStyle(
       {this.shape = BoxShape.rectangle,
       this.padding = const EdgeInsets.all(6),
+      this.landscapeWidthRatio = 1.5,
       this.selectedBackground,
       this.unselectedBackground,
       this.selectedTextStyle,

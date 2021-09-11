@@ -64,10 +64,19 @@ class CalendarTopBar extends StatelessWidget {
               : CupertinoIcons.chevron_down,
           yearMonth < range.last ? onNext : null)
     ];
-    return Center(
+    return Container(
+        padding: EdgeInsets.zero,
+        width: barOrientation == Axis.horizontal
+            ? double.infinity
+            : MediaQuery.of(context).size.width / 8,
+        height: barOrientation == Axis.vertical
+            ? double.infinity
+            : MediaQuery.of(context).size.height / 8,
         child: Flex(
             direction: barOrientation,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: barOrientation == Axis.horizontal
+                ? MainAxisAlignment.spaceEvenly
+                : MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: renderPos));
   }
