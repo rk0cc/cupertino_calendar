@@ -2,6 +2,35 @@ import 'package:cupertino_calendar_structre/src/reminds.dart';
 import 'package:intl/intl.dart';
 import 'package:test/test.dart';
 
+class ThirdPartyEventsData with DateRemindGenerator<Events> {
+  final String start = "2019-09-01 08:00:00";
+  final String end = "2019-09-01 09:00:00";
+  final String name = "First lesson";
+
+  static DateTime loadFormat(String se) =>
+      DateFormat("yyyy-MM-dd HH:mm:ss").parse(se);
+
+  @override
+  Events get remindObject =>
+      Events(name: name, from: loadFormat(start), to: loadFormat(end));
+}
+
+class ThirdPartyEvents {
+  final String eventName;
+  final String from;
+  final String to;
+
+  ThirdPartyEvents(
+      {required this.eventName, required this.from, required this.to});
+}
+
+class ThirdPartyHoliday {
+  final String holidayName;
+  final String date;
+
+  ThirdPartyHoliday({required this.holidayName, required this.date});
+}
+
 void main() {
   group("Object definition", () {
     group("in Events", () {
@@ -54,6 +83,69 @@ void main() {
           "date": DateFormat("yyy-MM-dd").format(xmas.dateTime)
         }
       });
+    });
+  });
+  group("Generator test", () {
+    test("get events", () {
+      expect(ThirdPartyEventsData().remindObject.from,
+          DateTime(2019, 9, 1, 8, 0, 0));
+    });
+  });
+  group("DateRemindList test", () {
+    List<ThirdPartyEvents> _dummyE = [
+      ThirdPartyEvents(
+          eventName: "Foo",
+          from: "2020-01-01 09:00:00",
+          to: "2020-01-01 09:03:00"),
+      ThirdPartyEvents(
+          eventName: "Foo 2",
+          from: "2020-01-02 09:00:00",
+          to: "2020-01-02 09:03:00"),
+      ThirdPartyEvents(
+          eventName: "Foo 3",
+          from: "2020-01-03 09:00:00",
+          to: "2020-01-03 09:03:00")
+    ];
+    List<ThirdPartyHoliday> _dummyH = [
+      ThirdPartyHoliday(holidayName: "Bar 1", date: "2019-08-09"),
+      ThirdPartyHoliday(holidayName: "Bar 2", date: "2019-11-21")
+    ];
+    test("sperate test", () {
+      DateRemindList speratedList = DateRemindListConversion
+          .convertListFromDividedSource<ThirdPartyEvents, ThirdPartyHoliday>(
+              _dummyE, _dummyH,
+              exportEvents: (de) => Events(
+                  name: de.eventName,
+                  from: ThirdPartyEventsData.loadFormat(de.from),
+                  to: ThirdPartyEventsData.loadFormat(de.to)),
+              exportHoliday: (dh) => Holiday(
+                  name: dh.holidayName,
+                  date: DateFormat("yyyy-MM-dd").parse(dh.date)));
+      expect(speratedList.events.length, 3);
+      expect(speratedList.holiday.length, 2);
+      expect(
+          () => speratedList.singleWhere((element) => element.name == "Foo 2"),
+          returnsNormally);
+    });
+    test("all in one list", () {
+      DateRemindList aiol =
+          DateRemindListConversion.convertListFromSource<dynamic>(
+              []
+                ..addAll(_dummyE)
+                ..addAll(_dummyH),
+              eventsCondition: (i) => i is ThirdPartyEvents,
+              holidayCondition: (i) => i is ThirdPartyHoliday,
+              exportEvents: (de) => Events(
+                  name: de.eventName,
+                  from: ThirdPartyEventsData.loadFormat(de.from),
+                  to: ThirdPartyEventsData.loadFormat(de.to)),
+              exportHoliday: (dh) => Holiday(
+                  name: dh.holidayName,
+                  date: DateFormat("yyyy-MM-dd").parse(dh.date)));
+      expect(aiol.events.length, 3);
+      expect(aiol.holiday.length, 2);
+      expect(() => aiol.singleWhere((element) => element.name == "Foo 2"),
+          returnsNormally);
     });
   });
 }

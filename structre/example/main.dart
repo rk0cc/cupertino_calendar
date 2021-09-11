@@ -1,4 +1,4 @@
-import 'package:cupertino_calendar_structre/cupertino_calendar_structre.dart';
+import 'package:cupertino_calendar_structre/structre.dart';
 
 void main() {
   // YearMonth demo
