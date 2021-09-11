@@ -24,10 +24,17 @@ void main() {
     expect(tM.year, today.year);
     expect(tM.month, today.month);
   });
-  test("Check sort order", () {
+  group("Range test", () {
     var f = YearMonth(2021, 3), t = YearMonth(2021, 8);
     YearMonthRange testRange = YearMonthRange(f, t);
-    expect(testRange.toList().first, equals(f));
-    expect(testRange.toList().last, equals(t));
+    test("check sort order", () {
+      expect(testRange.toList().first, equals(f));
+      expect(testRange.toList().last, equals(t));
+    });
+    test("get corrected index", () {
+      expect(testRange.indexWhere(f), 0);
+      expect(testRange.indexWhere(t), testRange.length - 1);
+      expect(testRange.indexWhere(YearMonth(2021, 5)), 2);
+    });
   });
 }

@@ -126,6 +126,17 @@ class YearMonthRange extends SetBase<YearMonth> {
   @override
   Iterator<YearMonth> get iterator => _ymr.iterator;
 
+  /// Get [element]'s index in this set
+  ///
+  /// Return `-1` if not found, and the index is refer to the first element
+  /// found in this set
+  int indexWhere(YearMonth element) {
+    for (int idx = 0; idx < _ymr.length; idx++) {
+      if (_ymr.elementAt(idx) == element) return idx;
+    }
+    return -1;
+  }
+
   @override
   int get length => _ymr.length;
 

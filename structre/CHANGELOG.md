@@ -1,3 +1,7 @@
+# 1.0.0-beta-5
+
+* Add `indexWhere` in `YearMonthRange`
+
 ## 1.0.0-beta-4
 
 * Hide `DateRemind` and it abstracted classes
@@ -5,11 +9,11 @@
 
 ## 1.0.0-beta-3
 
-Fix `YearMonthRange` incorrect sort order issue
+* Fix `YearMonthRange` incorrect sort order issue
 
 ## 1.0.0-beta-2+1
 
-Hide `getDString` in export
+* Hide `getDString` in export
 
 ## 1.0.0-beta-2
 
@@ -19,11 +23,11 @@ Hide `getDString` in export
 
 ## 1.0.0-beta-1+2
 
-Fix `YearMonth`'s hash code pointing issue
+* Fix `YearMonth`'s hash code pointing issue
 
 ## 1.0.0-beta-1+1
 
-Add repository URL in pubspec
+* Add repository URL in pubspec
 
 ## 1.0.0-beta-1
 
