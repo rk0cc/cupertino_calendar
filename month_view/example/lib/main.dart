@@ -21,7 +21,18 @@ class MonthViewDemoWidgetState extends State<MonthViewDemoWidget> {
   @override
   Widget build(BuildContext context) =>
       CupertinoCalendarMonthView.withDateRemind(
-          dateRemindList: DateRemindList([]),
+          dateRemindList: DateRemindList([
+            Holiday(
+                name: "Sample holiday",
+                date: DateTime.now().subtract(Duration(days: 5))),
+            AllDayEvents(
+                name: "Sample events",
+                from: DateTime.now().subtract(Duration(days: 1)),
+                to: DateTime.now()),
+            Holiday(
+                name: "Sample holiday 2",
+                date: DateTime.now().add(Duration(days: 3)))
+          ]),
           yearMonthRange: YearMonthRange(YearMonth.dateTime(widget.demoFrom),
               YearMonth.dateTime(widget.demoTo)));
 }
