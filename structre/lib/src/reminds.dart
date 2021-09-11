@@ -68,9 +68,8 @@ class DateRemindListConversion {
           required Holiday Function(S) exportHoliday}) =>
       DateRemindList._resolver((dr) {
         source.forEach((srcdr) {
-          if (eventsCondition(srcdr))
-            dr.add(exportEvents(srcdr));
-          else if (holidayCondition(srcdr)) dr.add(exportHoliday(srcdr));
+          if (eventsCondition(srcdr)) dr.add(exportEvents(srcdr));
+          if (holidayCondition(srcdr)) dr.add(exportHoliday(srcdr));
         });
       });
 
@@ -85,4 +84,24 @@ class DateRemindListConversion {
       DateRemindList._resolver((dr) => dr
         ..addAll(eventsSource.map((e) => exportEvents(e)))
         ..addAll(holidaySource.map((h) => exportHoliday(h))));
+
+  /// Convert to [DateRemindList] for [Events] only in the [List]
+  static DateRemindList convertEventsOnlyListFromSource<S>(List<S> source,
+          {required Events Function(S) exportEvents}) =>
+      convertListFromSource(source,
+          eventsCondition: (_) => true,
+          holidayCondition: (_) => false,
+          exportEvents: exportEvents,
+          exportHoliday: (_) => throw UnsupportedError(
+              "This method is not suppose to making Holiday object"));
+
+  /// Convert to [DateRemindList] for [Holiday] only in the [List]
+  static DateRemindList convertHolidayOnlyListFromSource<S>(List<S> source,
+          {required Holiday Function(S) exportHoliday}) =>
+      convertListFromSource(source,
+          eventsCondition: (_) => false,
+          holidayCondition: (_) => true,
+          exportEvents: (_) => throw UnsupportedError(
+              "This method is not suppose to making Events object"),
+          exportHoliday: exportHoliday);
 }
