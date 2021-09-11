@@ -1,3 +1,7 @@
+## 1.0.0-beta-7
+
+* Create `convertHolidayOnlyListFromSource` and `convertEventsOnlyListFromSource` to convenient conversion process
+
 ## 1.0.0-beta-6
 
 * Create `tools` library
