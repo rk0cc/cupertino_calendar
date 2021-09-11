@@ -128,10 +128,12 @@ class YearMonthRange extends SetBase<YearMonth> {
 
   /// Get [element]'s index in this set
   ///
+  /// Applying [start] to define where index find first
+  ///
   /// Return `-1` if not found, and the index is refer to the first element
   /// found in this set
-  int indexWhere(YearMonth element) {
-    for (int idx = 0; idx < _ymr.length; idx++) {
+  int indexWhere(YearMonth element, [int start = 0]) {
+    for (int idx = start; idx < _ymr.length; idx++) {
       if (_ymr.elementAt(idx) == element) return idx;
     }
     return -1;
