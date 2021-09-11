@@ -1,6 +1,6 @@
 name: cupertino_calendar_month_view
 description: Display date in a month for Cupertino Calendar
-version: 1.0.0-beta-1
+version: 1.0.0-beta-1+1
 homepage: https://www.rk0cc.xyz
 repository: https://github.com/rk0cc/cupertino_calendar
 environment:

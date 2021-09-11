@@ -3,12 +3,12 @@ description: Demo project of cupertino_calendar_month_view
 publish_to: 'none'
 version: 1.0.0+1
 environment:
-  sdk: ">=2.13.0 <3.0.0"
-  flutter: ^2.2.3
+  sdk: ">=2.14.0 <3.0.0"
+  flutter: ^2.5.0
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_calendar_structre: ^1.0.0-beta-6
+  cupertino_calendar_structre: ^1.0.0-beta-8
   cupertino_calendar_month_view:
     path: ../
   cupertino_icons: ^1.0.2
