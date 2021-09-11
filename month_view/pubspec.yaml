@@ -4,12 +4,12 @@ version: 1.0.0-beta-1
 homepage: https://www.rk0cc.xyz
 repository: https://github.com/rk0cc/cupertino_calendar
 environment:
-  sdk: ">=2.13.0 <3.0.0"
-  flutter: ">=2.2.3"
+  sdk: ">=2.14.0 <3.0.0"
+  flutter: ">=2.5.0"
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_calendar_structre: ^1.0.0-beta-6
+  cupertino_calendar_structre: ^1.0.0-beta-8+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

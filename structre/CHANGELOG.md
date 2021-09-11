@@ -1,3 +1,12 @@
+## 1.0.0-beta-8+1
+
+* Ignore test script
+
+## 1.0.0-beta-8
+
+* Set Dart version `2.14` as minimum version
+* Added `.pubignore`
+
 ## 1.0.0-beta-7
 
 * Create `convertHolidayOnlyListFromSource` and `convertEventsOnlyListFromSource` to convenient conversion process
