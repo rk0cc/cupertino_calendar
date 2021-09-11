@@ -63,7 +63,7 @@ class CupertinoCalendarMonthViewState
                     FractionallySizedBox(
                         widthFactor: 1,
                         heightFactor:
-                            orient == Orientation.portrait ? 0.2 : 0.25,
+                            orient == Orientation.portrait ? 0.15 : 0.2,
                         child: CalendarTopBar(
                             yearMonth: currentYearMonth,
                             style: widget.topBarStyle,
