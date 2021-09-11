@@ -17,9 +17,11 @@ class MonthGrid extends StatefulWidget {
   /// Get holiday in this month
   final List<Events> events;
 
-  final List<DateTime?> _dim;
-
+  /// Direction of [Flex]. It also handle the scale of [DayBox] if
+  /// applied as [Axis.horizontal]
   final Axis direction;
+
+  final List<DateTime?> _dim;
 
   /// Create new [GridView] of [yearMonth]
   MonthGrid(this.yearMonth,

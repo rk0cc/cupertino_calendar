@@ -4,14 +4,31 @@ import 'package:flutter/cupertino.dart';
 import 'widgets/widgets.dart' hide MonthGridState;
 import 'styles/styles.dart';
 
+/// A completed [Widget] for displaying month view
 class CupertinoCalendarMonthView extends StatefulWidget {
+  /// The range of [YearMonth]
+  ///
+  /// Please ensure the range is included [YearMonth.now]
   final YearMonthRange yearMonthRange;
+
+  /// Styles preference for [DayBox]
   final DayBoxStyle? dayBoxStyle;
+
+  /// Styles preference for [CalendarTopBar]
   final CalendarTopBarStyle? topBarStyle;
+
+  /// A list of [Events] and [Holiday] which will affect [DayBox] context
+  ///
+  /// (Only available in [CupertinoCalendarMonthView.withDateRemind])
   final DateRemindList dateRemindList;
+
+  /// The weekday of beginning of the calendar
   final FirstDayOfWeek firstDayOfWeek;
+
+  /// Required [SafeArea] for adjusting widget render position
   final bool safeArea;
 
+  /// Create basic [CupertinoCalendarMonthView]
   CupertinoCalendarMonthView({
     this.dayBoxStyle,
     this.topBarStyle,
@@ -22,6 +39,7 @@ class CupertinoCalendarMonthView extends StatefulWidget {
             "The range must included this month"),
         dateRemindList = DateRemindList();
 
+  /// Create [CupertinoCalendarMonthView] with [DateRemindList] supported
   CupertinoCalendarMonthView.withDateRemind(
       {this.dayBoxStyle,
       this.topBarStyle,
@@ -37,23 +55,31 @@ class CupertinoCalendarMonthView extends StatefulWidget {
       CupertinoCalendarMonthViewState();
 }
 
+/// A [State] class of [CupertinoCalendarMonthView]
+///
+/// It only appeared in module library on default export
 class CupertinoCalendarMonthViewState
     extends State<CupertinoCalendarMonthView> {
+  /// The [YearMonth] object that current picked
   late YearMonth currentYearMonth;
-  late PageController _monthViewController;
+
+  /// A controller widget for controlling [PageView] which displaying
+  /// [currentYearMonth] calendar
+  late PageController monthViewController;
 
   @override
   void initState() {
+    // Default use today's year and month
     currentYearMonth = YearMonth.now();
     super.initState();
-    _monthViewController = PageController(
+    monthViewController = PageController(
         initialPage: widget.yearMonthRange.indexWhere(currentYearMonth),
         keepPage: false);
   }
 
   @override
   void dispose() {
-    _monthViewController.dispose();
+    monthViewController.dispose();
     super.dispose();
   }
 
@@ -62,13 +88,13 @@ class CupertinoCalendarMonthViewState
       yearMonth: currentYearMonth,
       style: widget.topBarStyle,
       range: widget.yearMonthRange,
-      onPrevious: () => _monthViewController.previousPage(
+      onPrevious: () => monthViewController.previousPage(
           duration: Duration(milliseconds: 500), curve: Curves.easeInOut),
-      onNext: () => _monthViewController.nextPage(
+      onNext: () => monthViewController.nextPage(
           duration: Duration(milliseconds: 500), curve: Curves.easeInOut));
 
   PageView _monthView(BuildContext context, Orientation orientation) => PageView.builder(
-      controller: _monthViewController,
+      controller: monthViewController,
       onPageChanged: (changedPage) => setState(() =>
           currentYearMonth = widget.yearMonthRange.elementAt(changedPage)),
       scrollDirection:

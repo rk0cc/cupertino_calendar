@@ -16,7 +16,9 @@ class DemoHomePage extends StatelessWidget {
       child: MonthViewDemoWidget());
 }
 
+// The example start here
 class MonthViewDemoWidget extends StatefulWidget {
+  // Apply the range of the calendar
   final DateTime demoFrom = DateTime.now().subtract(Duration(days: 90)),
       demoTo = DateTime.now().add(Duration(days: 90));
 
@@ -28,7 +30,10 @@ class MonthViewDemoWidgetState extends State<MonthViewDemoWidget> {
   @override
   Widget build(BuildContext context) =>
       CupertinoCalendarMonthView.withDateRemind(
+          // If the month view is inside another widget, please disable safeArea
+          safeArea: true,
           dateRemindList: DateRemindList([
+            // Apply date remind objects
             Holiday(
                 name: "Sample holiday",
                 date: DateTime.now().subtract(Duration(days: 5))),
@@ -40,6 +45,7 @@ class MonthViewDemoWidgetState extends State<MonthViewDemoWidget> {
                 name: "Sample holiday 2",
                 date: DateTime.now().add(Duration(days: 3)))
           ]),
+          // Assign the range of year month
           yearMonthRange: YearMonthRange(YearMonth.dateTime(widget.demoFrom),
               YearMonth.dateTime(widget.demoTo)));
 }

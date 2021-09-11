@@ -9,6 +9,8 @@
 ///
 /// There is modulize package version for maximize freedom for controlling
 /// calendar or just use partical widgets in this package.
+///
+/// (It does not included structre package in this library)
 library cupertino_calendar_month_view;
 
 import 'src/month_view_widget.dart' show CupertinoCalendarMonthView;

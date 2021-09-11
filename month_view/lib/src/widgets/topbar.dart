@@ -23,8 +23,10 @@ class CalendarTopBar extends StatelessWidget {
   /// Leave [Null] for using generic format
   final String? locale;
 
+  /// The orientation of the [CalendarTopBar]
   final Axis barOrientation;
 
+  /// Create top bar of the calendar
   CalendarTopBar(
       {required this.yearMonth,
       required this.range,
@@ -37,6 +39,8 @@ class CalendarTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var applyStyle = style ?? CalendarTopBarStyle();
+
+    // Factory method for building button
     CupertinoButton btnMaker(IconData icons, void Function()? onPressed) =>
         CupertinoButton(
             child: Icon(icons, size: applyStyle.iconSize),
@@ -48,9 +52,11 @@ class CalendarTopBar extends StatelessWidget {
     List<Widget> renderPos = [
       btnMaker(
           barOrientation == Axis.horizontal
-              ? CupertinoIcons.left_chevron
-              : CupertinoIcons.chevron_up,
-          yearMonth > range.first ? onPrevious : null),
+              ? CupertinoIcons.left_chevron // Horizontal
+              : CupertinoIcons.chevron_up, // Vertical
+          yearMonth > range.first
+              ? onPrevious
+              : null), // Disallow controll when reached limit
       Text(
           yearMonth.formatString(
               format:
@@ -60,9 +66,11 @@ class CalendarTopBar extends StatelessWidget {
           textAlign: TextAlign.center),
       btnMaker(
           barOrientation == Axis.horizontal
-              ? CupertinoIcons.right_chevron
-              : CupertinoIcons.chevron_down,
-          yearMonth < range.last ? onNext : null)
+              ? CupertinoIcons.right_chevron // Horizontal
+              : CupertinoIcons.chevron_down, // Vertical
+          yearMonth < range.last
+              ? onNext
+              : null) // Disallow controll when reached limit
     ];
     return Container(
         padding: EdgeInsets.zero,
