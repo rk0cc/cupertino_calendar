@@ -1,9 +1,9 @@
-# 1.0.0-beta-6
+## 1.0.0-beta-6
 
 * Create `tools` library
 * `DateRemind`, `DateRemindGenerator` and `DateRemindListConversion` now beloning to `tools` library
 
-# 1.0.0-beta-5
+## 1.0.0-beta-5
 
 * Add `indexWhere` in `YearMonthRange`
 
