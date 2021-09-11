@@ -43,7 +43,8 @@ class CupertinoCalendarMonthViewState
   void initState() {
     currentYearMonth = YearMonth.now();
     super.initState();
-    _monthViewController = PageController();
+    _monthViewController = PageController(
+        initialPage: widget.yearMonthRange.indexWhere(currentYearMonth));
   }
 
   @override
@@ -76,7 +77,8 @@ class CupertinoCalendarMonthViewState
                     Expanded(
                         child: PageView.builder(
                             controller: _monthViewController,
-                            onPageChanged: (changedPage) {},
+                            onPageChanged: (changedPage) => setState(() => currentYearMonth =
+                                widget.yearMonthRange.elementAt(changedPage)),
                             scrollDirection: widget.scrollDirection,
                             itemCount: widget.yearMonthRange.length,
                             itemBuilder: (context, ymc) => MonthGrid(
@@ -90,13 +92,8 @@ class CupertinoCalendarMonthViewState
                                         e.to.year >= currentYearMonth.year &&
                                         e.to.month >= currentYearMonth.month)
                                     .toList(),
-                                holidayInThisMonth: widget
-                                    .dateRemindList.holiday
-                                    .where((h) =>
-                                        h.dateTime.year ==
-                                            currentYearMonth.year &&
-                                        h.dateTime.month ==
-                                            currentYearMonth.month)
+                                holidayInThisMonth: widget.dateRemindList.holiday
+                                    .where((h) => h.dateTime.year == currentYearMonth.year && h.dateTime.month == currentYearMonth.month)
                                     .toList())))
                   ])));
 }
