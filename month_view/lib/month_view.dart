@@ -1,4 +1,4 @@
-/// A library for displaying [MonthView]
+/// A library for displaying [CupertinoCalendarMonthView]
 ///
 /// It is ready to deploy package with customizable style configuration.
 ///
@@ -11,7 +11,7 @@
 /// calendar or just use partical widgets in this package.
 library cupertino_calendar_month_view;
 
-import '/src/month_view_widget.dart' show MonthView;
+import 'src/month_view_widget.dart' show CupertinoCalendarMonthView;
 
-export 'src/month_view_widget.dart' hide MonthViewState;
+export 'src/month_view_widget.dart' hide CupertinoCalendarMonthViewState;
 export 'src/styles/styles.dart';
