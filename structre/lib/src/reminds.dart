@@ -53,6 +53,7 @@ class DateRemindList extends ListBase<DateRemind> {
       .toList(growable: false);
 }
 
+/// To handle exporting [DateRemindList] from varous source in flutter
 class DateRemindListConversion {
   /// Load a [List] of [source] from other classes
   ///
