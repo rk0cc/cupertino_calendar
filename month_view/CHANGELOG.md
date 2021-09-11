@@ -1,3 +1,7 @@
+## 1.0.0-beta-1+2
+
+* Retry upload to generate docs
+
 ## 1.0.0-beta-1+1
 
 * Use newer version in example directory
