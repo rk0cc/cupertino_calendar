@@ -23,11 +23,14 @@ class CalendarTopBar extends StatelessWidget {
   /// Leave [Null] for using generic format
   final String? locale;
 
+  final Axis barOrientation;
+
   CalendarTopBar(
       {required this.yearMonth,
       required this.range,
       required this.onPrevious,
       required this.onNext,
+      this.barOrientation = Axis.horizontal,
       this.style,
       this.locale});
 
@@ -41,20 +44,31 @@ class CalendarTopBar extends StatelessWidget {
             color: applyStyle.active,
             disabledColor:
                 applyStyle.inactive ?? CupertinoColors.quaternaryLabel);
-    return Center(
-        child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-          btnMaker(CupertinoIcons.left_chevron,
-              yearMonth > range.first ? onPrevious : null),
-          Text(yearMonth.formatString(
+
+    List<Widget> renderPos = [
+      btnMaker(
+          barOrientation == Axis.horizontal
+              ? CupertinoIcons.left_chevron
+              : CupertinoIcons.chevron_up,
+          yearMonth > range.first ? onPrevious : null),
+      Text(
+          yearMonth.formatString(
               format:
                   applyStyle.yearMonthFormat.dateFormatPattern(locale != null),
-              locale: locale)),
-          btnMaker(CupertinoIcons.right_chevron,
-              yearMonth < range.last ? onNext : null)
-        ]));
+              locale: locale),
+          softWrap: true,
+          textAlign: TextAlign.center),
+      btnMaker(
+          barOrientation == Axis.horizontal
+              ? CupertinoIcons.right_chevron
+              : CupertinoIcons.chevron_down,
+          yearMonth < range.last ? onNext : null)
+    ];
+    return Center(
+        child: Flex(
+            direction: barOrientation,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: renderPos));
   }
 }

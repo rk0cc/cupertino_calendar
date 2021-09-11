@@ -10,11 +10,13 @@ class CupertinoCalendarMonthView extends StatefulWidget {
   final CalendarTopBarStyle? topBarStyle;
   final DateRemindList dateRemindList;
   final Axis scrollDirection;
+  final FirstDayOfWeek firstDayOfWeek;
 
   CupertinoCalendarMonthView(
       {this.dayBoxStyle,
       this.topBarStyle,
       required this.yearMonthRange,
+      this.firstDayOfWeek = FirstDayOfWeek.sun,
       this.scrollDirection = Axis.horizontal})
       : assert(yearMonthRange.where((ym) => ym == YearMonth.now()).isNotEmpty,
             "The range must included this month"),
@@ -24,6 +26,7 @@ class CupertinoCalendarMonthView extends StatefulWidget {
       {this.dayBoxStyle,
       this.topBarStyle,
       this.scrollDirection = Axis.horizontal,
+      this.firstDayOfWeek = FirstDayOfWeek.sun,
       required this.dateRemindList,
       required this.yearMonthRange})
       : assert(yearMonthRange.where((ym) => ym == YearMonth.now()).isNotEmpty,
@@ -47,6 +50,37 @@ class CupertinoCalendarMonthViewState
         initialPage: widget.yearMonthRange.indexWhere(currentYearMonth));
   }
 
+  CalendarTopBar _topbar(BuildContext context, Axis axis) => CalendarTopBar(
+      barOrientation: axis,
+      yearMonth: currentYearMonth,
+      style: widget.topBarStyle,
+      range: widget.yearMonthRange,
+      onPrevious: () => _monthViewController.previousPage(
+          duration: Duration(seconds: 1), curve: Curves.easeInOut),
+      onNext: () => _monthViewController.nextPage(
+          duration: Duration(seconds: 1), curve: Curves.easeInOut));
+
+  PageView _monthView(BuildContext context) => PageView.builder(
+      controller: _monthViewController,
+      onPageChanged: (changedPage) => setState(() =>
+          currentYearMonth = widget.yearMonthRange.elementAt(changedPage)),
+      scrollDirection: widget.scrollDirection,
+      itemCount: widget.yearMonthRange.length,
+      itemBuilder: (context, ymc) => MonthGrid(widget.yearMonthRange.elementAt(ymc),
+          dayBoxStyle: widget.dayBoxStyle,
+          eventsInThisMonth: widget.dateRemindList.events
+              .where((e) =>
+                  e.from.year <= currentYearMonth.year &&
+                  e.from.month <= currentYearMonth.month &&
+                  e.to.year >= currentYearMonth.year &&
+                  e.to.month >= currentYearMonth.month)
+              .toList(),
+          holidayInThisMonth: widget.dateRemindList.holiday
+              .where((h) =>
+                  h.dateTime.year == currentYearMonth.year &&
+                  h.dateTime.month == currentYearMonth.month)
+              .toList()));
+
   @override
   Widget build(BuildContext context) => Container(
       constraints: BoxConstraints(
@@ -55,45 +89,22 @@ class CupertinoCalendarMonthViewState
           maxWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height),
       child: OrientationBuilder(
-          builder: (context, orient) => Column(
+          builder: (context, orient) => Flex(
+                  direction: orient == Orientation.portrait
+                      ? Axis.vertical
+                      : Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
                     FractionallySizedBox(
-                        widthFactor: 1,
-                        heightFactor:
-                            orient == Orientation.portrait ? 0.15 : 0.2,
-                        child: CalendarTopBar(
-                            yearMonth: currentYearMonth,
-                            style: widget.topBarStyle,
-                            range: widget.yearMonthRange,
-                            onPrevious: () => _monthViewController.previousPage(
-                                duration: Duration(seconds: 1),
-                                curve: Curves.easeInOut),
-                            onNext: () => _monthViewController.nextPage(
-                                duration: Duration(seconds: 1),
-                                curve: Curves.easeInOut))),
-                    Expanded(
-                        child: PageView.builder(
-                            controller: _monthViewController,
-                            onPageChanged: (changedPage) => setState(() => currentYearMonth =
-                                widget.yearMonthRange.elementAt(changedPage)),
-                            scrollDirection: widget.scrollDirection,
-                            itemCount: widget.yearMonthRange.length,
-                            itemBuilder: (context, ymc) => MonthGrid(
-                                widget.yearMonthRange.elementAt(ymc),
-                                dayBoxStyle: widget.dayBoxStyle,
-                                eventsInThisMonth: widget.dateRemindList.events
-                                    .where((e) =>
-                                        e.from.year <= currentYearMonth.year &&
-                                        e.from.month <=
-                                            currentYearMonth.month &&
-                                        e.to.year >= currentYearMonth.year &&
-                                        e.to.month >= currentYearMonth.month)
-                                    .toList(),
-                                holidayInThisMonth: widget.dateRemindList.holiday
-                                    .where((h) => h.dateTime.year == currentYearMonth.year && h.dateTime.month == currentYearMonth.month)
-                                    .toList())))
+                        heightFactor: orient == Orientation.portrait ? 0.15 : 1,
+                        widthFactor:
+                            orient == Orientation.landscape ? 0.125 : 1,
+                        child: _topbar(
+                            context,
+                            orient == Orientation.portrait
+                                ? Axis.horizontal
+                                : Axis.vertical)),
+                    Expanded(child: FittedBox(child: _monthView(context)))
                   ])));
 }
