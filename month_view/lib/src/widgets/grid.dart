@@ -132,11 +132,11 @@ bool _checkEventsListReduced(List<Events> events, YearMonth currentYearMonth) {
         YearMonth.dateTime(et.to) > validYM.last) {
       // It definity during event
       continue;
-    } else if (!validYM
+    } else if (validYM
         .where((vym) =>
             vym == YearMonth.dateTime(et.from) ||
             vym == YearMonth.dateTime(et.to))
-        .isNotEmpty) {
+        .isEmpty) {
       return false;
     }
   }
