@@ -11,10 +11,11 @@ class MonthGrid extends StatefulWidget {
   /// Style preference for [DayBox]
   final DayBoxStyle? dayBoxStyle;
 
-  /// Get holiday in this month
+  /// Get holiday in this month, including previous and next month
   final List<Holiday> holiday;
 
-  /// Get holiday in this month
+  /// Get events in this month, including previous and next month between
+  /// duration
   final List<Events> events;
 
   /// Direction of [Flex]. It also handle the scale of [DayBox] if
@@ -30,7 +31,9 @@ class MonthGrid extends StatefulWidget {
       this.direction = Axis.vertical,
       this.events = const <Events>[],
       this.holiday = const <Holiday>[]})
-      : _dim = List<DateTime?>.filled(
+      : assert(_checkHolidayListReduced(holiday, yearMonth)),
+        assert(_checkEventsListReduced(events, yearMonth)),
+        _dim = List<DateTime?>.filled(
             firstDayOfWeek.calculatePlaceholderFromStart(yearMonth), null,
             growable: true)
           ..addAll(yearMonth.allDaysInMonth)
@@ -91,4 +94,51 @@ class MonthGridState extends State<MonthGrid> {
                       dt.day == currentPicked.day,
                   day: widget._dim[count]!,
                   style: widget.dayBoxStyle)));
+}
+
+List<YearMonth> _getValidAppearedMonth(YearMonth currentYearMonth) {
+  List<YearMonth> vAYM = [];
+  if (currentYearMonth.month == 1) {
+    vAYM.add(YearMonth(currentYearMonth.year - 1, 12));
+  } else {
+    vAYM.add(YearMonth(currentYearMonth.year, currentYearMonth.month - 1));
+  }
+  vAYM.add(currentYearMonth);
+  if (currentYearMonth.month == 12) {
+    vAYM.add(YearMonth(currentYearMonth.year + 1, 1));
+  } else {
+    vAYM.add(YearMonth(currentYearMonth.year, currentYearMonth.month + 1));
+  }
+  return vAYM..sort((ym1, ym2) => ym2.compareTo(ym1));
+}
+
+bool _checkHolidayListReduced(
+    List<Holiday> holiday, YearMonth currentYearMonth) {
+  var validYM = _getValidAppearedMonth(currentYearMonth);
+  for (Holiday ht in holiday) {
+    if (validYM
+        .where((vym) => vym == YearMonth.dateTime(ht.dateTime))
+        .isEmpty) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool _checkEventsListReduced(List<Events> events, YearMonth currentYearMonth) {
+  var validYM = _getValidAppearedMonth(currentYearMonth);
+  for (Events et in events) {
+    if (YearMonth.dateTime(et.from) < validYM.first &&
+        YearMonth.dateTime(et.to) > validYM.last) {
+      // It definity during event
+      continue;
+    } else if (!validYM
+        .where((vym) =>
+            vym == YearMonth.dateTime(et.from) ||
+            vym == YearMonth.dateTime(et.to))
+        .isNotEmpty) {
+      return false;
+    }
+  }
+  return true;
 }

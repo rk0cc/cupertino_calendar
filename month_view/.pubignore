@@ -2,3 +2,4 @@ example/android/
 example/ios/
 **/build/
 test/
+**/.dart_tool/
