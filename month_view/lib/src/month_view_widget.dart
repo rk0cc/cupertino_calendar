@@ -1,6 +1,5 @@
 import 'package:cupertino_calendar_structre/structre.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'widgets/widgets.dart' hide MonthGridState;
 import 'styles/styles.dart';
 
@@ -28,27 +27,39 @@ class CupertinoCalendarMonthView extends StatefulWidget {
   /// Required [SafeArea] for adjusting widget render position
   final bool safeArea;
 
+  /// Keep the latest page of the [MonthGrid]
+  final bool keepPage;
+
+  final State<CupertinoCalendarMonthView> _state =
+      CupertinoCalendarMonthViewState();
+
   /// Create basic [CupertinoCalendarMonthView]
   CupertinoCalendarMonthView({
+    Key? key,
     this.dayBoxStyle,
     this.topBarStyle,
+    this.keepPage = false,
     this.safeArea = true,
     required this.yearMonthRange,
     this.firstDayOfWeek = FirstDayOfWeek.sun,
   })  : assert(yearMonthRange.where((ym) => ym == YearMonth.now()).isNotEmpty,
             "The range must included this month"),
-        dateRemindList = DateRemindList();
+        dateRemindList = DateRemindList(),
+        super(key: key);
 
   /// Create [CupertinoCalendarMonthView] with [DateRemindList] supported
   CupertinoCalendarMonthView.withDateRemind(
-      {this.dayBoxStyle,
+      {Key? key,
+      this.dayBoxStyle,
       this.topBarStyle,
+      this.keepPage = false,
       this.safeArea = true,
       this.firstDayOfWeek = FirstDayOfWeek.sun,
       required this.dateRemindList,
       required this.yearMonthRange})
       : assert(yearMonthRange.where((ym) => ym == YearMonth.now()).isNotEmpty,
-            "The range must included this month");
+            "The range must included this month"),
+        super(key: key);
 
   @override
   State<CupertinoCalendarMonthView> createState() =>
@@ -65,21 +76,42 @@ class CupertinoCalendarMonthViewState
 
   /// A controller widget for controlling [PageView] which displaying
   /// [currentYearMonth] calendar
-  late PageController monthViewController;
+  late PageController _monthViewController;
+
+  /// [currentYearMonth]'s index
+  late int _cymIndex;
+
+  bool _inited = false;
 
   @override
   void initState() {
     // Default use today's year and month
     currentYearMonth = YearMonth.now();
+    _cymIndex = widget.yearMonthRange.indexWhere(currentYearMonth);
     super.initState();
-    monthViewController = PageController(
-        initialPage: widget.yearMonthRange.indexWhere(currentYearMonth),
-        keepPage: false);
+    _inited = true;
+    _monthViewController =
+        PageController(initialPage: _cymIndex, keepPage: widget.keepPage);
+  }
+
+  void _toCurrentMonth() {
+    if (_inited) {
+      _monthViewController.jumpToPage(_cymIndex);
+    }
+  }
+
+  void _toAnotherYearMonth(YearMonth yearMonth) {
+    if (_inited) {
+      int pageNo = widget.yearMonthRange.indexWhere(yearMonth);
+      if (pageNo == -1)
+        throw RangeError("${yearMonth.formatString()} is not in the range");
+      _monthViewController.jumpToPage(pageNo);
+    }
   }
 
   @override
   void dispose() {
-    monthViewController.dispose();
+    _monthViewController.dispose();
     super.dispose();
   }
 
@@ -88,13 +120,13 @@ class CupertinoCalendarMonthViewState
       yearMonth: currentYearMonth,
       style: widget.topBarStyle,
       range: widget.yearMonthRange,
-      onPrevious: () => monthViewController.previousPage(
+      onPrevious: () => _monthViewController.previousPage(
           duration: Duration(milliseconds: 500), curve: Curves.easeInOut),
-      onNext: () => monthViewController.nextPage(
+      onNext: () => _monthViewController.nextPage(
           duration: Duration(milliseconds: 500), curve: Curves.easeInOut));
 
   PageView _monthView(BuildContext context, Orientation orientation) => PageView.builder(
-      controller: monthViewController,
+      controller: _monthViewController,
       onPageChanged: (changedPage) => setState(() =>
           currentYearMonth = widget.yearMonthRange.elementAt(changedPage)),
       scrollDirection:
@@ -140,4 +172,32 @@ class CupertinoCalendarMonthViewState
   Widget build(BuildContext context) => widget.safeArea
       ? SafeArea(child: _renderContext(context))
       : _renderContext(context);
+}
+
+/// A simple controller for [CupertinoCalendarMonthView] and controll the view
+/// by another [Widget] which in the same page
+class CupertinoCalendarMonthViewExternalController {
+  final GlobalKey<CupertinoCalendarMonthViewState> _stateKey;
+
+  /// Initalize controller with [stateKey]
+  ///
+  /// [stateKey] must be attached to [CupertinoCalendarMonthView] already
+  CupertinoCalendarMonthViewExternalController(
+      GlobalKey<CupertinoCalendarMonthViewState> stateKey)
+      : _stateKey = stateKey;
+
+  /// Change page to current [YearMonth]
+  void toCurrentMonth() => _stateKey.currentState!._toCurrentMonth();
+
+  /// Change another [YearMonth] within [YearMonthRange] in
+  /// [CupertinoCalendarMonthView]. Otherwise, throws [RangeError] or call
+  /// [onError] if provided
+  void toYearMonth(YearMonth yearMonth,
+      {void Function(RangeError re)? onError}) {
+    try {
+      _stateKey.currentState!._toAnotherYearMonth(yearMonth);
+    } on RangeError catch (re) {
+      (onError ?? (re) => throw re)(re);
+    }
+  }
 }

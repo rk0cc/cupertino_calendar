@@ -15,5 +15,5 @@ library cupertino_calendar_month_view;
 
 import 'src/month_view_widget.dart' show CupertinoCalendarMonthView;
 
-export 'src/month_view_widget.dart' hide CupertinoCalendarMonthViewState;
+export 'src/month_view_widget.dart';
 export 'src/styles/styles.dart';
