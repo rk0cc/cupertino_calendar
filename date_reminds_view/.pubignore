@@ -2,6 +2,6 @@ example/android/
 example/ios/
 build/
 test/
-.dart_tool/
+**/.dart_tool/
 .idea/
 .vscode/
