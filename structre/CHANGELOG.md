@@ -1,3 +1,7 @@
+## 1.0.0
+
+Same as RC1, first stable version
+
 ## 1.0.0-rc-1
 
 Remove unnecessary files that upload to pub.dev
