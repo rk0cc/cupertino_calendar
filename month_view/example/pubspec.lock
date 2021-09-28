@@ -28,14 +28,14 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0-rc-1"
+    version: "1.0.0-rc-2"
   cupertino_calendar_structre:
     dependency: "direct main"
     description:
       name: cupertino_calendar_structre
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-beta-8+1"
+    version: "1.0.0-rc-1"
   cupertino_icons:
     dependency: "direct main"
     description:

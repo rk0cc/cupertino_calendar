@@ -1,3 +1,7 @@
+## 1.0.0-rc-2
+
+Handle orientation from outside
+
 ## 1.0.0-rc-1
 
 Remove unnecessary files that upload to pub.dev

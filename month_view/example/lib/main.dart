@@ -28,8 +28,8 @@ class MonthViewDemoWidget extends StatefulWidget {
 
 class MonthViewDemoWidgetState extends State<MonthViewDemoWidget> {
   @override
-  Widget build(BuildContext context) =>
-      CupertinoCalendarMonthView.withDateRemind(
+  Widget build(BuildContext context) => OrientationBuilder(
+      builder: (context, orient) => CupertinoCalendarMonthView.withDateRemind(
           // If the month view is inside another widget, please disable safeArea
           safeArea: true,
           dateRemindList: DateRemindList([
@@ -47,5 +47,6 @@ class MonthViewDemoWidgetState extends State<MonthViewDemoWidget> {
           ]),
           // Assign the range of year month
           yearMonthRange: YearMonthRange(YearMonth.dateTime(widget.demoFrom),
-              YearMonth.dateTime(widget.demoTo)));
+              YearMonth.dateTime(widget.demoTo)),
+          orientation: orient));
 }

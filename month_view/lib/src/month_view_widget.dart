@@ -5,6 +5,9 @@ import 'styles/styles.dart';
 
 /// A completed [Widget] for displaying month view
 class CupertinoCalendarMonthView extends StatefulWidget {
+  /// Binding [OrientationBuilder]'s orientation
+  final Orientation orientation;
+
   /// The range of [YearMonth]
   ///
   /// Please ensure the range is included [YearMonth.now]
@@ -44,6 +47,7 @@ class CupertinoCalendarMonthView extends StatefulWidget {
     this.onSelectedDate,
     this.keepPage = false,
     this.safeArea = true,
+    required this.orientation,
     required this.yearMonthRange,
     this.firstDayOfWeek = FirstDayOfWeek.sun,
   })  : assert(yearMonthRange.where((ym) => ym == YearMonth.now()).isNotEmpty,
@@ -60,6 +64,7 @@ class CupertinoCalendarMonthView extends StatefulWidget {
       this.keepPage = false,
       this.safeArea = true,
       this.firstDayOfWeek = FirstDayOfWeek.sun,
+      required this.orientation,
       required this.dateRemindList,
       required this.yearMonthRange})
       : assert(yearMonthRange.where((ym) => ym == YearMonth.now()).isNotEmpty,
@@ -89,10 +94,7 @@ class CupertinoCalendarMonthViewState
   bool _inited = false;
 
   CurrentDatePickedEvent get _selectedDateEventHandler =>
-      widget.onSelectedDate ??
-      (cd) {
-        print(cd);
-      };
+      widget.onSelectedDate ?? (cd) {};
 
   @override
   void initState() {
@@ -169,29 +171,28 @@ class CupertinoCalendarMonthViewState
                       h.dateTime.month == currentYearMonth.month)
                   .toList()));
 
-  Widget _renderContext(BuildContext context) => Center(
-      child: OrientationBuilder(
-          builder: (context, orient) => Flex(
-                  direction: orient == Orientation.portrait
-                      ? Axis.vertical
-                      : Axis.horizontal,
-                  children: [
-                    _topbar(
-                        context,
-                        orient == Orientation.portrait
-                            ? Axis.horizontal
-                            : Axis.vertical),
-                    Expanded(
-                        child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.zero,
-                            child: _monthView(context, orient)))
-                  ])));
+  Widget _renderContext(BuildContext context, Orientation orient) => Center(
+          child: Flex(
+              direction: orient == Orientation.portrait
+                  ? Axis.vertical
+                  : Axis.horizontal,
+              children: [
+            _topbar(
+                context,
+                orient == Orientation.portrait
+                    ? Axis.horizontal
+                    : Axis.vertical),
+            Expanded(
+                child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.zero,
+                    child: _monthView(context, orient)))
+          ]));
 
   @override
   Widget build(BuildContext context) => widget.safeArea
-      ? SafeArea(child: _renderContext(context))
-      : _renderContext(context);
+      ? SafeArea(child: _renderContext(context, widget.orientation))
+      : _renderContext(context, widget.orientation);
 }
 
 /// A simple controller for [CupertinoCalendarMonthView] and controll the view
