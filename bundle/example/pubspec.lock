@@ -56,21 +56,21 @@ packages:
       name: cupertino_calendar_date_reminds_view
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-rc-3"
+    version: "1.0.0+1"
   cupertino_calendar_month_view:
     dependency: transitive
     description:
       name: cupertino_calendar_month_view
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-rc-2"
+    version: "1.0.0"
   cupertino_calendar_structre:
     dependency: transitive
     description:
       name: cupertino_calendar_structre
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-rc-1"
+    version: "1.0.0"
   cupertino_icons:
     dependency: "direct main"
     description:

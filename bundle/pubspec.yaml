@@ -8,9 +8,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_calendar_structre: ^1.0.0-rc-1
-  cupertino_calendar_month_view: ^1.0.0-rc-2
-  cupertino_calendar_date_reminds_view: ^1.0.0-rc-3
+  cupertino_calendar_structre: ^1.0.0
+  cupertino_calendar_month_view: ^1.0.0
+  cupertino_calendar_date_reminds_view: ^1.0.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
