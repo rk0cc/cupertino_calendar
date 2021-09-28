@@ -1,3 +1,7 @@
+## 1.0.0-beta-2
+
+* Retry publish with `flutter 2.5` support from `pub.dev`
+
 ## 1.0.0-beta-1+2
 
 * Retry upload to generate docs
