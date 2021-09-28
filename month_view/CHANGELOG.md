@@ -1,3 +1,7 @@
+## 1.0.0
+
+Same as 1.0.0-rc-2, first stable version
+
 ## 1.0.0-rc-2
 
 Handle orientation from outside
