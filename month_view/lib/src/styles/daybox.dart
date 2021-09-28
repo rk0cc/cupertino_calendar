@@ -33,7 +33,7 @@ class DayBoxStyle {
   /// A ratio value for adjusting month view's [DayBox]s' width size to ensure
   /// all month can be shown without scrolling in [GridView]
   ///
-  /// Default value is `1.5`
+  /// Default will use adjusted width to matched all grid is filled entire screen
   final double? landscapeWidthRatio;
 
   /// Assign style data of [DayBox]

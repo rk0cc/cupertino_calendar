@@ -1,5 +1,7 @@
 part of 'widgets.dart';
 
+typedef CurrentDatePickedEvent = void Function(DateTime currentPicked);
+
 /// Generate a [GridView] of repersenting all day of current [YearMonth]
 class MonthGrid extends StatefulWidget {
   /// Current [YearMonth]
@@ -22,11 +24,14 @@ class MonthGrid extends StatefulWidget {
   /// applied as [Axis.horizontal]
   final Axis direction;
 
+  final CurrentDatePickedEvent currentDatePickedEvent;
+
   final List<DateTime?> _dim;
 
   /// Create new [GridView] of [yearMonth]
   MonthGrid(this.yearMonth,
-      {this.firstDayOfWeek = FirstDayOfWeek.sun,
+      {required this.currentDatePickedEvent,
+      this.firstDayOfWeek = FirstDayOfWeek.sun,
       this.dayBoxStyle,
       this.direction = Axis.vertical,
       this.events = const <Events>[],
@@ -55,45 +60,52 @@ class MonthGridState extends State<MonthGrid> {
         "The length of day in month must be able to cover entire row of GridView");
 
     // Pick today or the first day of month
-    currentPicked = widget.yearMonth.todayInThisMonth
-        ? DateTime.now()
-        : widget.yearMonth.firstDay;
+    currentPicked = getDefaultSelectedDate(widget.yearMonth);
+
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 7,
-          childAspectRatio: widget.direction == Axis.vertical
-              ? 1
-              : widget.dayBoxStyle?.landscapeWidthRatio ?? 1.5),
-      itemCount: widget._dim.length,
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, count) => widget._dim[count] == null
-          ? PlaceholderDayBox()
-          : GestureDetector(
-              onTap: () => setState(() => currentPicked = widget._dim[count]!),
-              child: DayBox(
-                  isHoliday: (dt) => widget.holiday
-                      .where((hd) =>
-                          hd.dateTime.year == dt.year &&
-                          hd.dateTime.month == dt.month &&
-                          hd.dateTime.day == dt.day)
-                      .isNotEmpty,
-                  hasEvent: (dt) => widget.events
-                      .where((ed) =>
-                          (ed.from.isAfter(dt) || ed.from.isAtSameMomentAs(dt)) &&
-                          (ed.to.isBefore(dt) || ed.to.isAtSameMomentAs(dt)))
-                      .isNotEmpty,
-                  pickedCondition: (dt) =>
-                      dt.year == currentPicked.year &&
-                      dt.month == currentPicked.month &&
-                      dt.day == currentPicked.day,
-                  day: widget._dim[count]!,
-                  style: widget.dayBoxStyle)));
+  Widget build(BuildContext context) => Center(
+      child: GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 7,
+              childAspectRatio: widget.direction == Axis.vertical
+                  ? 1
+                  : widget.dayBoxStyle?.landscapeWidthRatio ??
+                      MediaQuery.of(context).size.width /
+                          MediaQuery.of(context).size.height),
+          itemCount: widget._dim.length,
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, count) => widget._dim[count] == null
+              ? PlaceholderDayBox()
+              : GestureDetector(
+                  onTap: () {
+                    setState(() => currentPicked = widget._dim[count]!);
+                    widget.currentDatePickedEvent(currentPicked);
+                  },
+                  child: DayBox(
+                      isHoliday: (dt) => widget.holiday
+                          .where((hd) =>
+                              hd.dateTime.year == dt.year &&
+                              hd.dateTime.month == dt.month &&
+                              hd.dateTime.day == dt.day)
+                          .isNotEmpty,
+                      hasEvent: (dt) => widget.events
+                          .where((ed) =>
+                              (ed.from.isAfter(dt) ||
+                                  ed.from.isAtSameMomentAs(dt)) &&
+                              (ed.to.isBefore(dt) ||
+                                  ed.to.isAtSameMomentAs(dt)))
+                          .isNotEmpty,
+                      pickedCondition: (dt) =>
+                          dt.year == currentPicked.year &&
+                          dt.month == currentPicked.month &&
+                          dt.day == currentPicked.day,
+                      day: widget._dim[count]!,
+                      style: widget.dayBoxStyle))));
 }
 
 List<YearMonth> _getValidAppearedMonth(YearMonth currentYearMonth) {
@@ -142,3 +154,10 @@ bool _checkEventsListReduced(List<Events> events, YearMonth currentYearMonth) {
   }
   return true;
 }
+
+/// Get default selected date
+///
+/// If [cym.todayInThisMonth] true, return [DateTime.now].
+/// Otherwise, return [cym.firstDay]
+DateTime getDefaultSelectedDate(YearMonth cym) =>
+    cym.todayInThisMonth ? DateTime.now() : cym.firstDay;

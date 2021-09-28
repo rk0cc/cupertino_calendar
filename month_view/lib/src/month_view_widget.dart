@@ -24,6 +24,9 @@ class CupertinoCalendarMonthView extends StatefulWidget {
   /// The weekday of beginning of the calendar
   final FirstDayOfWeek firstDayOfWeek;
 
+  /// A callback event when selected date
+  final CurrentDatePickedEvent? onSelectedDate;
+
   /// Required [SafeArea] for adjusting widget render position
   final bool safeArea;
 
@@ -38,6 +41,7 @@ class CupertinoCalendarMonthView extends StatefulWidget {
     Key? key,
     this.dayBoxStyle,
     this.topBarStyle,
+    this.onSelectedDate,
     this.keepPage = false,
     this.safeArea = true,
     required this.yearMonthRange,
@@ -52,6 +56,7 @@ class CupertinoCalendarMonthView extends StatefulWidget {
       {Key? key,
       this.dayBoxStyle,
       this.topBarStyle,
+      this.onSelectedDate,
       this.keepPage = false,
       this.safeArea = true,
       this.firstDayOfWeek = FirstDayOfWeek.sun,
@@ -83,6 +88,12 @@ class CupertinoCalendarMonthViewState
 
   bool _inited = false;
 
+  CurrentDatePickedEvent get _selectedDateEventHandler =>
+      widget.onSelectedDate ??
+      (cd) {
+        print(cd);
+      };
+
   @override
   void initState() {
     // Default use today's year and month
@@ -92,6 +103,7 @@ class CupertinoCalendarMonthViewState
     _inited = true;
     _monthViewController =
         PageController(initialPage: _cymIndex, keepPage: widget.keepPage);
+    _selectedDateEventHandler(getDefaultSelectedDate(currentYearMonth));
   }
 
   void _toCurrentMonth() {
@@ -125,29 +137,37 @@ class CupertinoCalendarMonthViewState
       onNext: () => _monthViewController.nextPage(
           duration: Duration(milliseconds: 500), curve: Curves.easeInOut));
 
-  PageView _monthView(BuildContext context, Orientation orientation) => PageView.builder(
-      controller: _monthViewController,
-      onPageChanged: (changedPage) => setState(() =>
-          currentYearMonth = widget.yearMonthRange.elementAt(changedPage)),
-      scrollDirection:
-          orientation == Orientation.portrait ? Axis.horizontal : Axis.vertical,
-      itemCount: widget.yearMonthRange.length,
-      itemBuilder: (context, ymc) => MonthGrid(
-          widget.yearMonthRange.elementAt(ymc),
-          direction: orientation == Orientation.landscape
+  PageView _monthView(BuildContext context, Orientation orientation) =>
+      PageView.builder(
+          controller: _monthViewController,
+          onPageChanged: (changedPage) {
+            setState(() => currentYearMonth =
+                widget.yearMonthRange.elementAt(changedPage));
+            _selectedDateEventHandler(getDefaultSelectedDate(currentYearMonth));
+          },
+          scrollDirection: orientation == Orientation.portrait
               ? Axis.horizontal
               : Axis.vertical,
-          dayBoxStyle: widget.dayBoxStyle,
-          events: widget.dateRemindList.events
-              .where((e) =>
-                  e.from.year <= currentYearMonth.year &&
-                  e.from.month <= currentYearMonth.month &&
-                  e.to.year >= currentYearMonth.year &&
-                  e.to.month >= currentYearMonth.month)
-              .toList(),
-          holiday: widget.dateRemindList.holiday
-              .where((h) => h.dateTime.year == currentYearMonth.year && h.dateTime.month == currentYearMonth.month)
-              .toList()));
+          itemCount: widget.yearMonthRange.length,
+          itemBuilder: (context, ymc) => MonthGrid(
+              widget.yearMonthRange.elementAt(ymc),
+              currentDatePickedEvent: _selectedDateEventHandler,
+              direction: orientation == Orientation.landscape
+                  ? Axis.horizontal
+                  : Axis.vertical,
+              dayBoxStyle: widget.dayBoxStyle,
+              events: widget.dateRemindList.events
+                  .where((e) =>
+                      e.from.year <= currentYearMonth.year &&
+                      e.from.month <= currentYearMonth.month &&
+                      e.to.year >= currentYearMonth.year &&
+                      e.to.month >= currentYearMonth.month)
+                  .toList(),
+              holiday: widget.dateRemindList.holiday
+                  .where((h) =>
+                      h.dateTime.year == currentYearMonth.year &&
+                      h.dateTime.month == currentYearMonth.month)
+                  .toList()));
 
   Widget _renderContext(BuildContext context) => Center(
       child: OrientationBuilder(

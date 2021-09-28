@@ -13,14 +13,14 @@ void main() {
   group("Assertion test", () {
     test("disallow outranged holiday", () {
       expect(
-          () => MonthGrid(tym, holiday: [
+          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, holiday: [
                 Holiday(name: "Valid 1", date: DateTime(2021, 8, 15)),
                 Holiday(name: "Valid 2", date: DateTime(2021, 9, 15)),
                 Holiday(name: "Valid 3", date: DateTime(2021, 10, 15))
               ]),
           returnsNormally);
       expect(
-          () => MonthGrid(tym, holiday: [
+          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, holiday: [
                 Holiday(name: "Invalid 1", date: DateTime(2021, 7, 15)),
                 Holiday(name: "Valid 2", date: DateTime(2021, 9, 15)),
                 Holiday(name: "Valid 3", date: DateTime(2021, 10, 15))
@@ -29,7 +29,7 @@ void main() {
     });
     test("disallow outranged events", () {
       expect(
-          () => MonthGrid(tym, events: [
+          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, events: [
                 Events(
                     name: "Valid 1",
                     from: DateTime(2021, 8, 30, 15, 30, 0),
@@ -57,7 +57,7 @@ void main() {
               ]),
           returnsNormally);
       expect(
-          () => MonthGrid(tym, events: [
+          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, events: [
                 Events(
                     name: "Valid 1",
                     from: DateTime(2021, 8, 30, 15, 30, 0),
@@ -75,7 +75,10 @@ void main() {
     });
   });
   group("Widget test", () {
-    var mA = MockApp(Container(width: 300, height: 600, child: MonthGrid(tym)));
+    var mA = MockApp(Container(
+        width: 300,
+        height: 600,
+        child: MonthGrid(tym, currentDatePickedEvent: (cd) {})));
     var today = DateTime.now();
     print(
         "Today is ${today.year}-${today.month}-${today.day},\nit will not be used as the day of tapping test");
