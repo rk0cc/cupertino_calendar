@@ -27,6 +27,7 @@ class DateRemindViewIndex extends StatefulWidget {
         to: DateTime(2021, 9, 3, 11)),
     Events(
         name: "Sample event 4",
+        description: "It appear under holiday",
         from: DateTime(2021, 9, 1, 13, 30),
         to: DateTime(2021, 9, 1, 14)),
     Holiday(name: "First day of school", date: DateTime(2021, 9, 1))
