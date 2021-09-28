@@ -1,6 +1,6 @@
 name: cupertino_calendar_date_reminds_view
 description: Display events and holiday's information in Cupertino Calendar with selectable supported
-version: 1.0.0
+version: 1.0.0+1
 homepage: https://www.rk0cc.xyz
 repository: https://github.com/rk0cc/cupertino_calendar
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_calendar_structre: ^1.0.0-rc-1
+  cupertino_calendar_structre: ^1.0.0
   intl: ^0.17.0
 dev_dependencies:
   flutter_test:

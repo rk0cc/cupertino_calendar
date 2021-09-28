@@ -49,14 +49,14 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0"
+    version: "1.0.0+1"
   cupertino_calendar_structre:
     dependency: "direct dev"
     description:
       name: cupertino_calendar_structre
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-rc-1"
+    version: "1.0.0"
   cupertino_icons:
     dependency: "direct main"
     description:
