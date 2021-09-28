@@ -1,6 +1,6 @@
 part of 'dateremind.dart';
 
-class HolidayDateRemindWidget extends DateRemindWidget {
+class HolidayDateRemindWidget extends DateRemindWidget<Holiday> {
   HolidayDateRemindWidget(Holiday holiday,
       {SelectDateRemindHandler? onPressed,
       SelectDateRemindHandler? onLongPressed,
@@ -23,7 +23,7 @@ class HolidayDateRemindWidget extends DateRemindWidget {
                 style: _style.titleStyle, textAlign: TextAlign.start)),
         Text(
             (locale == null ? DateFormat("d MMM") : DateFormat.MMMd(locale))
-                .format((remind as Holiday).dateTime),
+                .format(remind.dateTime),
             style: _style.durationStyle)
       ];
 }

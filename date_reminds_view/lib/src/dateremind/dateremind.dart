@@ -11,8 +11,8 @@ part 'holiday.dart';
 
 typedef SelectDateRemindHandler = void Function(DateRemind pickedEvent);
 
-abstract class DateRemindWidget extends StatelessWidget {
-  final DateRemind remind;
+abstract class DateRemindWidget<D extends DateRemind> extends StatelessWidget {
+  final D remind;
   final SelectDateRemindHandler? onPressed;
   final SelectDateRemindHandler? onLongPressed;
   final DateRemindWidgetStyle _style;
