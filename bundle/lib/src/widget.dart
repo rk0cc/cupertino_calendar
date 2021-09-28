@@ -38,6 +38,7 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
 
   @override
   void initState() {
+    _cpd = DateTime.now();
     _currentConfigDR = widget.dateReminds ?? DateRemindList();
     super.initState();
   }
@@ -46,40 +47,52 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
   Widget build(BuildContext context) => Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.all(2.5),
       child: OrientationBuilder(
           builder: (context, orientation) => Flex(
-                  direction: orientation == Orientation.landscape
-                      ? Axis.horizontal
-                      : Axis.vertical,
+                  direction: orientation == Orientation.portrait
+                      ? Axis.vertical
+                      : Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CupertinoCalendarMonthView.withDateRemind(
-                        key: widget._calendarControlKey,
-                        safeArea: widget.safeArea,
-                        dateRemindList: _currentConfigDR,
-                        yearMonthRange: widget.range,
-                        onSelectedDate: (pd) => setState(() => _cpd = pd),
-                        firstDayOfWeek: widget.firstDayOfWeek,
-                        keepPage: true,
-                        dayBoxStyle: widget.style.dayBoxStyle,
-                        topBarStyle: widget.style.calendarTopBarStyle),
                     Expanded(
-                        child: CupertinoCalendarDateRemindsView(
-                      _cpd,
-                      dateRemindList: DateRemindList(_currentConfigDR
-                          .where((dr) => (dr is Events)
-                              ? dr.isOngoingDate(_cpd)
-                              : dr.isOngoing(_cpd))
-                          .toList()),
-                      dateRemindWidgetStyle:
-                          widget.style.dateRemindWidgetStyle ??
-                              DateRemindWidgetStyle(),
-                      onPress:
-                          widget.selectedDateRemindHandlerPreference?.onPress,
-                      onLongPress: widget
-                          .selectedDateRemindHandlerPreference?.onLongPress,
-                    ))
+                        flex: orientation == Orientation.portrait ? 4 : 7,
+                        child: CupertinoCalendarMonthView.withDateRemind(
+                            key: widget._calendarControlKey,
+                            orientation: orientation,
+                            safeArea: widget.safeArea,
+                            dateRemindList: _currentConfigDR,
+                            yearMonthRange: widget.range,
+                            onSelectedDate: (pd) => Future.delayed(
+                                Duration.zero,
+                                () async => setState(() => _cpd = pd)),
+                            firstDayOfWeek: widget.firstDayOfWeek,
+                            keepPage: true,
+                            dayBoxStyle: widget.style.dayBoxStyle,
+                            topBarStyle: widget.style.calendarTopBarStyle)),
+                    Flexible(
+                        flex: orientation == Orientation.portrait ? 1 : 5,
+                        child: Container(
+                            constraints: BoxConstraints(
+                                maxHeight: orientation == Orientation.portrait
+                                    ? MediaQuery.of(context).size.height / 2.5
+                                    : double.infinity),
+                            child: CupertinoCalendarDateRemindsView(
+                              _cpd,
+                              dateRemindList: DateRemindList(_currentConfigDR
+                                  .where((dr) => (dr is Events)
+                                      ? dr.isOngoingDate(_cpd)
+                                      : dr.isOngoing(_cpd))
+                                  .toList()),
+                              dateRemindWidgetStyle:
+                                  widget.style.dateRemindWidgetStyle ??
+                                      DateRemindWidgetStyle(),
+                              onPress: widget
+                                  .selectedDateRemindHandlerPreference?.onPress,
+                              onLongPress: widget
+                                  .selectedDateRemindHandlerPreference
+                                  ?.onLongPress,
+                            )))
                   ])));
 }

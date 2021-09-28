@@ -1,3 +1,7 @@
-## 1.0.0-rc-1
+## 1.0.0
 
 Initial release
+
+**Known bugs**
+
+* Date remind list has a whitespece when portrait
