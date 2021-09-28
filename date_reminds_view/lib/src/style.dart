@@ -38,7 +38,7 @@ class DateRemindWidgetStyle {
       this.titleStyle =
           const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
       this.descStyle =
-          const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+          const TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
       this.durationStyle =
           const TextStyle(fontSize: 18, fontWeight: FontWeight.normal)});
 }

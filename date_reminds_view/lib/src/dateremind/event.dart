@@ -31,7 +31,8 @@ class EventsDateRemindWidget extends DateRemindWidget<Events> {
         Padding(
             padding: EdgeInsets.only(bottom: 2.5),
             child: Text(remind.name, style: _style.titleStyle)),
-        Text(remind.description ?? "", style: _style.descStyle),
+        Text(remind.description ?? "",
+            style: _style.descStyle, overflow: TextOverflow.ellipsis),
         Padding(
             padding: EdgeInsets.only(top: 5),
             child: Text(
