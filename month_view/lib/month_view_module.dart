@@ -1,6 +1,6 @@
 /// Modulized package of [CupertinoCalendarMonthView] and it related classes
 ///
-/// It allow cudtomize the mmonth view whatever you want
+/// It allow cudtomize the month view whatever you want
 library cupertino_calendar_month_view.module;
 
 import 'src/month_view_widget.dart' show CupertinoCalendarMonthView;

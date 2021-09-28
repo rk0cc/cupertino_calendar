@@ -1,3 +1,9 @@
+## 1.0.0-beta-3
+
+* Adjust `MonthGrid` items' aspect ratio
+* Center the content
+* Add listener of selected date
+
 ## 1.0.0-beta-2
 
 * Retry publish with `flutter 2.5` support from `pub.dev`
