@@ -28,6 +28,7 @@ class DateRemindWidgetStyle {
   /// [TextStyle] data of duration
   final TextStyle durationStyle;
 
+  /// Create theme data for [DateRemindWidget]
   const DateRemindWidgetStyle(
       {this.eventsBorderColour,
       this.holidayBorderColour,
