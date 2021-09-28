@@ -22,7 +22,7 @@ class HolidayDateRemindWidget extends DateRemindWidget<Holiday> {
             child: Text(remind.name,
                 style: _style.titleStyle, textAlign: TextAlign.start)),
         Text(
-            (locale == null ? DateFormat("d MMM") : DateFormat.MMMd(locale))
+            (locale == null ? DateFormat("MMM d") : DateFormat.MMMd(locale))
                 .format(remind.dateTime),
             style: _style.durationStyle)
       ];
