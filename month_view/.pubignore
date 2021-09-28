@@ -1,5 +1,9 @@
 example/android/
 example/ios/
-**/build/
+build/
 test/
 **/.dart_tool/
+.idea/
+.vscode/
+*.iml
+/pubspec.lock
