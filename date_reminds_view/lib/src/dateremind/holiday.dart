@@ -13,6 +13,7 @@ class HolidayDateRemindWidget extends DateRemindWidget<Holiday> {
   BoxDecoration _boxDecoration(BuildContext context) => BoxDecoration(
         borderRadius: BorderRadius.all(_style.borderRadius),
         border: Border.all(
+            width: _style.borderWidth,
             color: _style.holidayBorderColour ?? CupertinoColors.systemRed),
         color: _style.backgroundColour,
       );

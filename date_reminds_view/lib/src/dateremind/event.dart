@@ -20,6 +20,7 @@ class EventsDateRemindWidget extends DateRemindWidget<Events> {
   BoxDecoration _boxDecoration(BuildContext context) => BoxDecoration(
         borderRadius: BorderRadius.all(_style.borderRadius),
         border: Border.all(
+            width: _style.borderWidth,
             color: _style.eventsBorderColour ??
                 CupertinoTheme.of(context).primaryColor),
         color: _style.backgroundColour,

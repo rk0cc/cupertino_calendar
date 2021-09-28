@@ -13,6 +13,9 @@ class DateRemindWidgetStyle {
   /// Background [Color] for [DateRemindWidget]
   final Color? backgroundColour;
 
+  /// Width of the border
+  final double borderWidth;
+
   /// [Radius] for [DateRemindWidget], default use `5` in [Radius.circular]
   final Radius borderRadius;
 
@@ -29,6 +32,7 @@ class DateRemindWidgetStyle {
       {this.eventsBorderColour,
       this.holidayBorderColour,
       this.borderRadius = const Radius.circular(5),
+      this.borderWidth = 3,
       this.backgroundColour,
       this.titleStyle =
           const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
