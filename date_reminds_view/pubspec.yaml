@@ -1,6 +1,6 @@
 name: cupertino_calendar_date_reminds_view
 description: Display events and holiday's information in Cupertino Calendar with selectable supported
-version: 1.0.0-rc-3
+version: 1.0.0
 homepage: https://www.rk0cc.xyz
 repository: https://github.com/rk0cc/cupertino_calendar
 environment:
