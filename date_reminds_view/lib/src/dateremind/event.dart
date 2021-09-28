@@ -1,5 +1,6 @@
 part of 'dateremind.dart';
 
+/// An extended class from [DateRemindWidget] for [Events] or [AllDayEvents]
 class EventsDateRemindWidget extends DateRemindWidget<Events> {
   EventsDateRemindWidget(Events events,
       {SelectDateRemindHandler? onPressed,
@@ -16,7 +17,7 @@ class EventsDateRemindWidget extends DateRemindWidget<Events> {
               DateFormat.Hm(locale).format(dt);
 
   @override
-  BoxDecoration boxDecoration(BuildContext context) => BoxDecoration(
+  BoxDecoration _boxDecoration(BuildContext context) => BoxDecoration(
         borderRadius: BorderRadius.all(_style.borderRadius),
         border: Border.all(
             color: _style.eventsBorderColour ??
@@ -25,7 +26,7 @@ class EventsDateRemindWidget extends DateRemindWidget<Events> {
       );
 
   @override
-  List<Widget> childContent(BuildContext context) => [
+  List<Widget> _childContent(BuildContext context) => [
         Padding(
             padding: EdgeInsets.only(bottom: 2.5),
             child: Text(remind.name, style: _style.titleStyle)),

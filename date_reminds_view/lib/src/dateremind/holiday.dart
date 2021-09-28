@@ -1,5 +1,6 @@
 part of 'dateremind.dart';
 
+/// An extended class from [DateRemindWidget] for [Holiday]
 class HolidayDateRemindWidget extends DateRemindWidget<Holiday> {
   HolidayDateRemindWidget(Holiday holiday,
       {SelectDateRemindHandler? onPressed,
@@ -9,14 +10,15 @@ class HolidayDateRemindWidget extends DateRemindWidget<Holiday> {
       : super(holiday, onPressed, onLongPressed, style, locale);
 
   @override
-  BoxDecoration boxDecoration(BuildContext context) => BoxDecoration(
+  BoxDecoration _boxDecoration(BuildContext context) => BoxDecoration(
         borderRadius: BorderRadius.all(_style.borderRadius),
-        border: Border.all(color: _style.holidayBorderColour),
+        border: Border.all(
+            color: _style.holidayBorderColour ?? CupertinoColors.systemRed),
         color: _style.backgroundColour,
       );
 
   @override
-  List<Widget> childContent(BuildContext context) => [
+  List<Widget> _childContent(BuildContext context) => [
         Padding(
             padding: EdgeInsets.only(bottom: 2.5),
             child: Text(remind.name,
