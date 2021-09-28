@@ -1,3 +1,7 @@
+## 1.0.0
+
+Rollback to previous design as the first stable version
+
 ## 1.0.0-rc-3
 
 Set shrinkwrap as true
