@@ -1,0 +1,33 @@
+name: Cupertino Calendar Date Reminds View test
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - date_reminds_view/lib/**.dart
+      - date_reminds_view/test/**.dart
+      - .github/workflows/date_reminds_view_test.yml
+defaults:
+  run:
+    working-directory: date_reminds_view
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        channel:
+          - stable
+          - beta
+          - dev
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1.5.3
+        with:
+          channel: ${{ matrix.channel }}
+      - name: Install depencies
+        run: flutter pub get
+      - name: Code analyse
+        run: flutter analyze --no-fatal-infos
+      - name: Run test
+        run: flutter test
+
