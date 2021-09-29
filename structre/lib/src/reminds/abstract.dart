@@ -39,19 +39,25 @@ abstract class DurationDateRemind extends DateRemind {
             to.isAfter(from) &&
             !from.isAtSameMomentAs(to)),
         super(name, from);
-
-  @override
-  bool isOngoing(DateTime dateTime) =>
+  
+  /// Check [dateTime]'s datetime is happening
+  bool isHappening(DateTime dateTime) =>
       dateTime.isAfter(_dt) && dateTime.isBefore(_untilDt);
 
   /// Like [isOngoing], but check [dateTime]'s date only
-  bool isOngoingDate(DateTime dateTime) =>
+  @override
+  bool isOngoing(DateTime dateTime) =>
       (dateTime.year >= _dt.year &&
           dateTime.month >= _dt.month &&
           dateTime.day >= _dt.day) &&
       (dateTime.year <= _untilDt.year &&
           dateTime.month <= _untilDt.month &&
           dateTime.day <= _untilDt.day);
+
+  /// Like [isOngoing], but check [dateTime]'s date only
+  @Deprecated("Please uses isOngoing instead")
+  bool isOngoingDate(DateTime dateTime) =>
+      isOngoing(dateTime);
 }
 
 /// Allowing convert to [D] with existed class
