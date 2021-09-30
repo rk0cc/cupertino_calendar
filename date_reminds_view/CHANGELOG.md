@@ -1,3 +1,7 @@
+## 1.0.1
+
+Enable shrink wrap and no padding
+
 ## 1.0.0+1
 
 Using stabled version of the structre

@@ -49,6 +49,7 @@ class CupertinoCalendarDateRemindsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.builder(
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       itemCount: _drl.length,
       itemBuilder: (context, count) => (<DateRemindWidget>(DateRemind dr) {
             switch (dr.runtimeType) {
