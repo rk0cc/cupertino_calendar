@@ -72,9 +72,7 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
                             keepPage: true,
                             dayBoxStyle: widget.style.dayBoxStyle,
                             topBarStyle: widget.style.calendarTopBarStyle)),
-                    Container(
-                        width: MediaQuery.of(context).size.width -
-                            (_marginSide * 2),
+                    SizedBox(
                         height: (MediaQuery.of(context).size.height / 3.5) -
                             _marginSide,
                         child: CupertinoCalendarDateRemindsView(
