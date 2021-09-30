@@ -77,26 +77,20 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
                             (_marginSide * 2),
                         height: (MediaQuery.of(context).size.height / 3.5) -
                             _marginSide,
-                        child: Container(
-                            constraints: BoxConstraints(
-                                maxHeight: orientation == Orientation.portrait
-                                    ? MediaQuery.of(context).size.height / 2.5
-                                    : double.infinity),
-                            child: CupertinoCalendarDateRemindsView(
-                              _cpd,
-                              dateRemindList: DateRemindList(_currentConfigDR
-                                  .where((dr) => (dr is Events)
-                                      ? dr.isOngoingDate(_cpd)
-                                      : dr.isOngoing(_cpd))
-                                  .toList()),
-                              dateRemindWidgetStyle:
-                                  widget.style.dateRemindWidgetStyle ??
-                                      DateRemindWidgetStyle(),
-                              onPress: widget
-                                  .selectedDateRemindHandlerPreference?.onPress,
-                              onLongPress: widget
-                                  .selectedDateRemindHandlerPreference
-                                  ?.onLongPress,
-                            )))
+                        child: CupertinoCalendarDateRemindsView(
+                          _cpd,
+                          dateRemindList: DateRemindList(_currentConfigDR
+                              .where((dr) => (dr is Events)
+                                  ? dr.isOngoingDate(_cpd)
+                                  : dr.isOngoing(_cpd))
+                              .toList()),
+                          dateRemindWidgetStyle:
+                              widget.style.dateRemindWidgetStyle ??
+                                  DateRemindWidgetStyle(),
+                          onPress: widget
+                              .selectedDateRemindHandlerPreference?.onPress,
+                          onLongPress: widget
+                              .selectedDateRemindHandlerPreference?.onLongPress,
+                        ))
                   ])));
 }
