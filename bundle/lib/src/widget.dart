@@ -32,6 +32,8 @@ class CupertinoCalendar extends StatefulWidget {
       _calendarControlKey;
 }
 
+final double _marginSide = 2.5;
+
 class CupertinoCalendarState extends State<CupertinoCalendar> {
   late DateTime _cpd;
   late DateRemindList _currentConfigDR;
@@ -47,7 +49,7 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
   Widget build(BuildContext context) => Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      margin: EdgeInsets.all(2.5),
+      margin: EdgeInsets.all(_marginSide),
       child: OrientationBuilder(
           builder: (context, orientation) => Flex(
                   direction: orientation == Orientation.portrait
@@ -57,7 +59,6 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                        flex: orientation == Orientation.portrait ? 4 : 7,
                         child: CupertinoCalendarMonthView.withDateRemind(
                             key: widget._calendarControlKey,
                             orientation: orientation,
@@ -71,8 +72,11 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
                             keepPage: true,
                             dayBoxStyle: widget.style.dayBoxStyle,
                             topBarStyle: widget.style.calendarTopBarStyle)),
-                    Flexible(
-                        flex: orientation == Orientation.portrait ? 1 : 5,
+                    Container(
+                        width: MediaQuery.of(context).size.width -
+                            (_marginSide * 2),
+                        height: (MediaQuery.of(context).size.height / 3.5) -
+                            _marginSide,
                         child: Container(
                             constraints: BoxConstraints(
                                 maxHeight: orientation == Orientation.portrait
