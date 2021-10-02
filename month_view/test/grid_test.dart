@@ -9,18 +9,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'mockapp.dart';
 
 void main() {
-  var tym = YearMonth(2021, 9);
   group("Assertion test", () {
+    var eym = YearMonth(2021, 9);
     test("disallow outranged holiday", () {
       expect(
-          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, holiday: [
+          () => MonthGrid(eym, currentDatePickedEvent: (cd) {}, holiday: [
                 Holiday(name: "Valid 1", date: DateTime(2021, 8, 15)),
                 Holiday(name: "Valid 2", date: DateTime(2021, 9, 15)),
                 Holiday(name: "Valid 3", date: DateTime(2021, 10, 15))
               ]),
           returnsNormally);
       expect(
-          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, holiday: [
+          () => MonthGrid(eym, currentDatePickedEvent: (cd) {}, holiday: [
                 Holiday(name: "Invalid 1", date: DateTime(2021, 7, 15)),
                 Holiday(name: "Valid 2", date: DateTime(2021, 9, 15)),
                 Holiday(name: "Valid 3", date: DateTime(2021, 10, 15))
@@ -29,7 +29,7 @@ void main() {
     });
     test("disallow outranged events", () {
       expect(
-          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, events: [
+          () => MonthGrid(eym, currentDatePickedEvent: (cd) {}, events: [
                 Events(
                     name: "Valid 1",
                     from: DateTime(2021, 8, 30, 15, 30, 0),
@@ -57,7 +57,7 @@ void main() {
               ]),
           returnsNormally);
       expect(
-          () => MonthGrid(tym, currentDatePickedEvent: (cd) {}, events: [
+          () => MonthGrid(eym, currentDatePickedEvent: (cd) {}, events: [
                 Events(
                     name: "Valid 1",
                     from: DateTime(2021, 8, 30, 15, 30, 0),
@@ -75,7 +75,7 @@ void main() {
     });
   });
   group("Widget test", () {
-    tym = YearMonth.now();
+    var tym = YearMonth.now();
     var mA = MockApp(Container(
         width: 300,
         height: 600,
