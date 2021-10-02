@@ -1,3 +1,7 @@
+## 1.0.1
+
+Remove unused code
+
 ## 1.0.0
 
 Same as 1.0.0-rc-2, first stable version

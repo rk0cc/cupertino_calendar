@@ -36,9 +36,6 @@ class CupertinoCalendarMonthView extends StatefulWidget {
   /// Keep the latest page of the [MonthGrid]
   final bool keepPage;
 
-  final State<CupertinoCalendarMonthView> _state =
-      CupertinoCalendarMonthViewState();
-
   /// Create basic [CupertinoCalendarMonthView]
   CupertinoCalendarMonthView({
     Key? key,

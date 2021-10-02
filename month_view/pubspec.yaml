@@ -1,6 +1,6 @@
 name: cupertino_calendar_month_view
 description: Display date in a month for Cupertino Calendar with events and holidays supported
-version: 1.0.0
+version: 1.0.1
 homepage: https://www.rk0cc.xyz
 repository: https://github.com/rk0cc/cupertino_calendar
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_calendar_structre: ^1.0.0
+  cupertino_calendar_structre: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
