@@ -78,9 +78,7 @@ class CupertinoCalendarState extends State<CupertinoCalendar> {
                         child: CupertinoCalendarDateRemindsView(
                           _cpd,
                           dateRemindList: DateRemindList(_currentConfigDR
-                              .where((dr) => (dr is Events)
-                                  ? dr.isOngoingDate(_cpd)
-                                  : dr.isOngoing(_cpd))
+                              .where((dr) => dr.isOngoing(_cpd))
                               .toList()),
                           dateRemindWidgetStyle:
                               widget.style.dateRemindWidgetStyle ??
