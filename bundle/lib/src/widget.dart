@@ -1,5 +1,3 @@
-import 'package:cupertino_calendar_month_view/month_view_module.dart';
-
 import 'style.dart';
 import 'handlers.dart';
 import 'package:flutter/cupertino.dart';
