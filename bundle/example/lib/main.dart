@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:cupertino_calendar/cupertino_calenar.dart';
+import 'package:cupertino_calendar/cupertino_calendar.dart';
 
 void main() => runApp(CupertinoCalendarExample());
 

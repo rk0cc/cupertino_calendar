@@ -1,5 +1,5 @@
 /// Make your own [CupertinoCalendar] with it's widget only
-library cupertino_calenar.module;
+library cupertino_calendar.module;
 
 import 'package:cupertino_calendar/src/widget.dart';
 
