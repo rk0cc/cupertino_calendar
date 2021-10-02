@@ -93,9 +93,7 @@ class _DateRemindViewIndex extends State<DateRemindViewIndex> {
                     Expanded(
                         child: CupertinoCalendarDateRemindsView(currentDate,
                             dateRemindList: DateRemindList(widget.edrl
-                                .where((dr) => (dr is Events)
-                                    ? dr.isOngoingDate(currentDate)
-                                    : dr.isOngoing(currentDate))
+                                .where((dr) => dr.isOngoing(currentDate))
                                 .toList()),
                             onPress: (picked) => showCupertinoDialog(
                                 context: context,

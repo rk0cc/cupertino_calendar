@@ -1,3 +1,7 @@
+## 1.0.2+1
+
+Correct assert condition
+
 ## 1.0.2
 
 Use latest structre
