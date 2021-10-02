@@ -75,6 +75,7 @@ void main() {
     });
   });
   group("Widget test", () {
+    tym = YearMonth.now();
     var mA = MockApp(Container(
         width: 300,
         height: 600,
