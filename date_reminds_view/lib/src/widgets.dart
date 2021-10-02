@@ -35,12 +35,7 @@ class CupertinoCalendarDateRemindsView extends StatelessWidget {
       this.onPress,
       this.onLongPress,
       this.locale})
-      : assert(
-            dateRemindList
-                .where((dr) => !((dr is Events)
-                    ? dr.isOngoingDate(currentDay)
-                    : dr.isOngoing(currentDay)))
-                .isEmpty,
+      : assert(dateRemindList.where((dr) => dr.isOngoing(currentDay)).isEmpty,
             "Ensure all date reminds are ongoing"),
         _drl = []
           ..addAll(dateRemindList.holiday)
