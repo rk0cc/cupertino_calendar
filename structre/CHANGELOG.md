@@ -1,3 +1,9 @@
+## 1.1.0
+
+`DurationDateRemind` API changes
+* Same condition of `isOngoing`
+* New method `isHappening` perform the same condition of old `isOngoing`
+
 ## 1.0.0
 
 Same as RC1, first stable version
