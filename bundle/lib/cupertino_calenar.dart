@@ -1,4 +1,6 @@
 /// A calendar widget designed for [CupertinoApp]
+///
+/// This library has all basic needed for building calendar in cupertino
 library cupertino_calenar;
 
 import 'package:flutter/cupertino.dart';

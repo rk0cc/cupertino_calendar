@@ -1,4 +1,7 @@
+/// Make your own [CupertinoCalendar] with it's widget only
 library cupertino_calenar.module;
+
+import 'package:cupertino_calendar/src/widget.dart';
 
 export 'package:cupertino_calendar_date_reminds_view/module.dart';
 export 'package:cupertino_calendar_month_view/month_view_module.dart';
