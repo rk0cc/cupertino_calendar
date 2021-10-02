@@ -3,7 +3,7 @@
 /// This library has all basic needed for building calendar in cupertino
 library cupertino_calenar;
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' show CupertinoApp;
 
 export 'package:cupertino_calendar_structre/structre.dart';
 export 'package:cupertino_calendar_month_view/month_view_module.dart'
