@@ -7,6 +7,8 @@ import 'package:cupertino_calendar_date_reminds_view/date_reminds_view.dart';
 import 'package:cupertino_calendar_structre/structre.dart';
 import 'package:cupertino_calendar/module.dart' show DateRemind;
 
+typedef FutureDateRemindHandler = Future<DateRemindList> Function();
+
 /// Display calendar in [CupertinoApp]
 class CupertinoCalendar extends StatefulWidget {
   final GlobalKey<CupertinoCalendarMonthViewState> _calendarControlKey;
@@ -51,6 +53,34 @@ class CupertinoCalendar extends StatefulWidget {
       : _calendarControlKey =
             GlobalKey(debugLabel: "Cupertino Calendar global control key");
 
+  /// Get [DateRemindList] from future and wrap [CupertinoCalendar] inside of
+  /// [FutureBuilder]
+  static FutureBuilder<DateRemindList> getDateRemindsFromFuture(
+          YearMonthRange range,
+          {required FutureDateRemindHandler handler,
+          SelectedDateRemindHandlerPreference?
+              selectedDateRemindHandlerPreference,
+          FirstDayOfWeek firstDayOfWeek = FirstDayOfWeek.sun,
+          CupertinoCalendarStyle style = const CupertinoCalendarStyle(),
+          bool safeArea = true}) =>
+      FutureBuilder(
+          future: handler(),
+          builder: (context, result) {
+            if (result.hasError) {
+              throw result.error!;
+            } else if (result.hasData) {
+              return CupertinoCalendar(range,
+                  dateReminds: result.data!,
+                  selectedDateRemindHandlerPreference:
+                      selectedDateRemindHandlerPreference,
+                  firstDayOfWeek: firstDayOfWeek,
+                  safeArea: safeArea,
+                  style: style);
+            }
+            return Center(
+                child: CupertinoActivityIndicator(radius: 48, animating: true));
+          });
+
   @override
   State<CupertinoCalendar> createState() => CupertinoCalendarState();
 
@@ -83,20 +113,21 @@ class CupertinoCalendar extends StatefulWidget {
       CupertinoCalendarMonthViewExternalController(_calendarControlKey);
 }
 
-/// Internal mixin that sperate different context when build
-mixin CupertinoCalendarUIDefiner {
+/// A [State] for [CupertinoCalendar]
+class CupertinoCalendarState extends State<CupertinoCalendar> {
   final double _marginSide = 2.5;
 
-  /// A widget that showing the calendar
-  CupertinoCalendarMonthView calendarContext(
-      BuildContext context, Orientation orientation);
-
-  /// Additional context that outside [calendarContext]
-  Widget? additionalContext(BuildContext context, Orientation orientation) =>
-      null;
+  late DateTime _cpd;
+  late DateRemindList _currentConfigDR;
 
   @override
-  // ignore: override_on_non_overriding_member
+  void initState() {
+    _cpd = DateTime.now();
+    _currentConfigDR = widget.dateReminds ?? DateRemindList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) => Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -109,52 +140,34 @@ mixin CupertinoCalendarUIDefiner {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(child: calendarContext(context, orientation)),
+                    Expanded(
+                        child: CupertinoCalendarMonthView.withDateRemind(
+                            key: widget._calendarControlKey,
+                            orientation: orientation,
+                            safeArea: widget.safeArea,
+                            dateRemindList: _currentConfigDR,
+                            yearMonthRange: widget.range,
+                            onSelectedDate: (pd) => Future.delayed(
+                                Duration.zero,
+                                () async => setState(() => _cpd = pd)),
+                            firstDayOfWeek: widget.firstDayOfWeek,
+                            keepPage: true,
+                            dayBoxStyle: widget.style.dayBoxStyle,
+                            topBarStyle: widget.style.calendarTopBarStyle)),
                     SizedBox(
                         height: (MediaQuery.of(context).size.height / 3.5) -
                             _marginSide,
-                        child: additionalContext(context, orientation))
+                        child: CupertinoCalendarDateRemindsView(
+                          _cpd,
+                          dateRemindList: DateRemindList(_currentConfigDR
+                              .where((dr) => dr.isOngoing(_cpd))
+                              .toList()),
+                          dateRemindWidgetStyle:
+                              widget.style.dateRemindWidgetStyle,
+                          onPress: widget
+                              .selectedDateRemindHandlerPreference?.onPress,
+                          onLongPress: widget
+                              .selectedDateRemindHandlerPreference?.onLongPress,
+                        ))
                   ])));
-}
-
-/// A [State] for [CupertinoCalendar]
-class CupertinoCalendarState extends State<CupertinoCalendar>
-    with CupertinoCalendarUIDefiner {
-  late DateTime _cpd;
-  late DateRemindList _currentConfigDR;
-
-  @override
-  void initState() {
-    _cpd = DateTime.now();
-    _currentConfigDR = widget.dateReminds ?? DateRemindList();
-    super.initState();
-  }
-
-  @override
-  CupertinoCalendarMonthView calendarContext(
-          BuildContext context, Orientation orientation) =>
-      CupertinoCalendarMonthView.withDateRemind(
-          key: widget._calendarControlKey,
-          orientation: orientation,
-          safeArea: widget.safeArea,
-          dateRemindList: _currentConfigDR,
-          yearMonthRange: widget.range,
-          onSelectedDate: (pd) => Future.delayed(
-              Duration.zero, () async => setState(() => _cpd = pd)),
-          firstDayOfWeek: widget.firstDayOfWeek,
-          keepPage: true,
-          dayBoxStyle: widget.style.dayBoxStyle,
-          topBarStyle: widget.style.calendarTopBarStyle);
-
-  @override
-  CupertinoCalendarDateRemindsView additionalContext(
-          BuildContext context, Orientation orientation) =>
-      CupertinoCalendarDateRemindsView(
-        _cpd,
-        dateRemindList: DateRemindList(
-            _currentConfigDR.where((dr) => dr.isOngoing(_cpd)).toList()),
-        dateRemindWidgetStyle: widget.style.dateRemindWidgetStyle,
-        onPress: widget.selectedDateRemindHandlerPreference?.onPress,
-        onLongPress: widget.selectedDateRemindHandlerPreference?.onLongPress,
-      );
 }
