@@ -6,4 +6,10 @@ Display events and holiday in Cupertino Calendar
 
 ## Screenshot
 
-![](https://imgur.com/Jmo4mQf.png)
+![](https://i.imgur.com/Jmo4mQf.png)
+
+<figure>
+    <video autoplay loop height="300">
+        <source src="https://i.imgur.com/RK1v83N.mp4">
+    </video>
+</figure>
