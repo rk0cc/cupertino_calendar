@@ -26,14 +26,13 @@ class _CupertinoCalendarIndex extends State<CupertinoCalendarIndex> {
             Holiday(
                 name: "Sample holiday",
                 date: DateTime.now().add(Duration(days: 2))),
-            Holiday(
-                name: "Sample holiday",
-                date: DateTime.now().add(Duration(days: 2))),
-            Holiday(
-                name: "Sample holiday",
-                date: DateTime.now().add(Duration(days: 2))),
-            Holiday(
-                name: "Sample holiday",
-                date: DateTime.now().add(Duration(days: 2)))
+            Events(
+                name: "Sample event",
+                from: DateTime.now().add(Duration(hours: 2)),
+                to: DateTime.now().add(Duration(hours: 3))),
+            Events(
+                name: "Sample event 2",
+                from: DateTime.now().add(Duration(days: 2)),
+                to: DateTime.now().add(Duration(days: 2, hours: 1)))
           ])));
 }

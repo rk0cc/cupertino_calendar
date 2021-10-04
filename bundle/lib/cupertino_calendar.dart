@@ -12,6 +12,6 @@ export 'package:cupertino_calendar_date_reminds_view/date_reminds_view.dart'
     show DateRemindWidgetStyle;
 export 'package:cupertino_calendar_date_reminds_view/module.dart'
     show SelectDateRemindHandler;
-export 'src/widget.dart' hide CupertinoCalendarState;
+export 'src/widget.dart' show CupertinoCalendar;
 export 'src/style.dart';
 export 'src/handlers.dart' hide CupertinoCalendarSelectAction;
