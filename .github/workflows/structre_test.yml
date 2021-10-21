@@ -13,9 +13,18 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        channel:
+          - stable
+          - beta
+          - dev
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1.2
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          sdk: ${{ matrix.channel }}
       - name: Install dependencies
         run: dart pub get
       - name: Analyze project source
