@@ -1,3 +1,7 @@
+## 1.0.2
+
+Update structre package
+
 ## 1.0.1
 
 Remove unused code

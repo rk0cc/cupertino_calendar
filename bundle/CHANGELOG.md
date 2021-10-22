@@ -1,3 +1,9 @@
+## 1.0.0
+
+General Release
+
+* Update to latest package
+
 ## 1.0.0-pre-3
 
 * Fix display error when horizontal view

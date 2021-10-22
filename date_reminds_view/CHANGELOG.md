@@ -1,3 +1,7 @@
+## 1.0.3
+
+Update package of structre
+
 ## 1.0.2+1
 
 Correct assert condition
