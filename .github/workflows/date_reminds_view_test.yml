@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v2.4.0
-      - uses: subosito/flutter-action@v1.5.3
+      - uses: subosito/flutter-action@v2.0.3
         with:
           channel: ${{ matrix.channel }}
       - name: Install depencies
